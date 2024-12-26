@@ -1,0 +1,53 @@
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+body.dark-mode .container-xxl {
+  background-color: #1e1e1e;
+}
+
+.btn.dark-mode-toggle {
+  background-color: #333;
+  color: white;
+  border: none;
+  transition: all 0.3s ease;    body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+body.dark-mode .container-xxl {
+    background-color: #1e1e1e;
+}
+
+.btn.dark-mode-toggle {
+    background-color: #333;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn.dark-mode-toggle:hover {
+    background-color: #555;
+}
+
+.btn-dark {
+    background-color: #1a1a1a;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+}
+
+.btn.dark-mode-toggle:hover {
+  background-color: #555;
+}
+
+.btn-dark {
+  background-color: #1a1a1a;
+}
+
+.text-primary {
+  color: #007bff !important;
+}
