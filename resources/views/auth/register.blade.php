@@ -12,7 +12,7 @@
                         <a href="/home" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
                                 <!-- Logo -->
-                                <img src="{{asset('storage/images/clinic-100.png')}}" alt="" style="width: 100px;">
+                                <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 100px;">
                             </span>
                             <!-- <span class="app-brand-text demo text-body fw-bolder">system</span> -->
                         </a>

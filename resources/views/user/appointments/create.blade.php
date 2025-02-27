@@ -10,8 +10,8 @@
         <a href="/home" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
-          <img src="{{asset('storage/images/doctor-80.png')}}" alt="" style="width: 50px;">
-          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">AMHS</span>
+          <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -31,9 +31,23 @@
         </li>
 
         <!-- Layouts -->
-        <li class="menu-item {{$userActive === 'Appointments' ? 'active' : ''}}">
+        <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fas fa-calendar-check"></i>
+            <div data-i18n="Layouts">Events</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('user.events.view') }}" class="menu-link">
+                <div data-i18n="Without navbar">View Events</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item {{$userActive === 'Appointments' ? 'active' : ''}}">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-regular fa-calendar"></i>
             <div data-i18n="Layouts">Appointments</div>
           </a>
 
@@ -56,7 +70,7 @@
           </ul>
         </li>
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Acoounts</span>
+          <span class="menu-header-text">Accounts</span>
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -86,58 +100,18 @@
             </li>
           </ul>
         </li>
-        <!-- <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div data-i18n="Authentications">Authentications</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Login</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Register</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Forgot Password</div>
-              </a>
-            </li>
-          </ul>
-        </li> -->
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <i class="menu-icon tf-icons bx bx-file"></i>
             <div data-i18n="Misc">Misc</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="{{ route('user.misc.logs') }}" class="menu-link">
+                <div data-i18n="Under Maintenance">Logs</div>
               </a>
             </li>
           </ul>
-        </li>
-        <!-- Components -->
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-          <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-          </a>
         </li>
       </ul>
     </aside>
@@ -212,7 +186,7 @@
                   <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="{{route('user.account.profile')}}">
                     <i class="bx bx-user me-2"></i>
                     <span class="align-middle">My Profile</span>
                   </a>
@@ -223,15 +197,12 @@
                     <span class="align-middle">Settings</span>
                   </a>
                 </li>
-                <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li> -->
+                <li>
+                  <a class="dropdown-item" href="{{ route('user.misc.logs') }}">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <span class="align-middle">Logs</span>
+                  </a>
+                </li>
                 <li>
                   <div class="dropdown-divider"></div>
                 </li>
@@ -272,31 +243,55 @@
                   <form method="POST" action="{{ route('user.appointments.store') }}" enctype="multipart/form-data">
                     @csrf
                     @if ($errors->any())
-            <div class="alert alert-danger">
-              <ul>
-              @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-              </ul>
-            </div>
-          @endif
+                    <div class="alert alert-danger">
+                      <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                    @endif
 
                     @if(session('success'))
-            <div class="alert alert-success">
-              {{ session('success') }}
-            </div>
-          @endif
+                    <div class="alert alert-success">
+                      {{ session('success') }}
+                    </div>
+                    @endif
 
                     <!-- Select Doctor -->
                     <div class="mb-3">
                       <label class="form-label" for="doctor">Select Doctor</label>
                       <select class="form-control" id="doctor" name="doctor_id" required>
-                        <option value="" disabled selected>Select a doctor</option>
+                        <option value="" selected>Select a doctor</option>
+
                         @foreach($doctors as $doctor)
-              <option value="{{ $doctor->id }}" data-image="{{ asset('storage/' . $doctor->image) }}">
-                {{ $doctor->name }}</option>
-            @endforeach
+                        @php
+                        // Ensure 'is_available' is a string before decoding
+                        $availability = is_string($doctor->is_available) ? json_decode($doctor->is_available, true) : $doctor->is_available;
+
+                        // Ensure it's an array, not a boolean or null
+                        $availableDays = is_array($availability) ? $availability : [];
+                        @endphp
+
+                        <option
+                          value="{{ $doctor->id }}"
+                          data-image="{{ asset('storage/' . $doctor->image) }}"
+                          data-available-days="{{ json_encode($availableDays) }}"
+                          @if(empty($availableDays)) style="color:gray;" @endif
+                          @if(in_array('Tuesday', $availableDays)) style="font-weight:bold;" @endif>
+                          {{ $doctor->name }}
+                          @if(empty($availableDays))
+                          (Unavailable)
+                          @else
+                          (Available on: {{ implode(', ', $availableDays) }}) -
+                          @endif
+                          @if($doctor->specialization )
+                          {{ $doctor->specialization }}
+                          @endif
+                        </option>
+                        @endforeach
                       </select>
+                      <div id="available-days-info" class="mt-2" style="color: gray; display: none;"></div>
                     </div>
 
                     <!-- Doctor Image Display -->
@@ -304,6 +299,7 @@
                       <label for="doctor-image" class="form-label">Doctor Image</label>
                       <img id="doctor-image" src="" alt="Doctor Image" width="100" class="mt-2">
                     </div>
+
 
                     <!-- Appointment Date -->
                     <div class="mb-3">
@@ -341,7 +337,7 @@
                 document.write(new Date().getFullYear());
               </script>
               , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">John Jasper Gatila</a>
+              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
             </div>
             <div>
               <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>

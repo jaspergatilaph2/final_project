@@ -4,12 +4,15 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\appointment\AppointmentController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Doctors\DoctorsController;
+use App\Http\Controllers\events\EventController;
 use App\Http\Controllers\Setting\SettingsController;
 use App\Http\Controllers\User\UsersController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,7 @@ use App\Http\Controllers\User\UsersController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     $title = config('app.name', 'Advance Health Management System');
     return view('welcome', ['title' => $title]);
@@ -36,6 +40,12 @@ Route::get('/maintenance', function () {
 
 // Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
 
+Route::get('/appointments/data', [App\Http\Controllers\appointment\AppointmentControllers::class, 'getAppointmentData']);
+
+Route::get('/appointments/count', [AppointmentController::class, 'getAppointmentCount']);
+
+
+
 // Admin Routes
 Route::group(['middleware' => ['auth', 'admin']], function () {
     // Admin Dashboard Route
@@ -47,7 +57,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/create', [AppointmentController::class, 'create'])->name('create');
         Route::get('/view', [AppointmentController::class, 'viewAppointments'])->name('view');
         Route::post('/{id}/update-status/{status}', [AppointmentController::class, 'updateStatus'])->name('updateStatus');
+
+        //DELETE route
+        Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('destroy');
     });
+
 
     // Admin Doctors Routes
     Route::prefix('admin/doctors')->name('admin.doctors.')->group(function () {
@@ -63,6 +77,20 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     // Admin Account Routes
     Route::prefix('admin/accounts')->name('admin.accounts.')->group(function () {
         Route::get('/profile', [AdminController::class, 'showProfile'])->name('profile');
+        Route::get('/profile/edit', [AdminController::class, 'editProfile'])->name('profile.edit');
+        Route::put('/profile/edit', [AdminController::class, 'updateProfile'])->name('profile.update'); // Add PUT route for updating profile
+    });
+
+    // Log Route
+    Route::prefix('admin/misc')->name('admin.misc.')->group(function () {
+        Route::get('/showlogs', [AdminController::class, 'showLogs'])->name('logs'); // Corrected route name
+    });
+
+    //Creating Events
+    Route::prefix('admin/events')->name('admin.events.')->group(function () {
+        Route::get('/create', [EventController::class, 'createEvent'])->name('create');
+        Route::post('/store', [EventController::class, 'store'])->name('store'); // Ensure only POST is allowed
+        Route::get('/view', [EventController::class, 'viewEvents'])->name('view');
     });
 });
 
@@ -90,7 +118,21 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::post('/update-avatar', [ProfileController::class, 'updateAvatar'])->name('user.avatar.update');
-        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    });
+
+    // Show logs User Route
+    Route::prefix('user/misc')->name('user.misc.')->group(function () {
+        Route::get('/showlogs', [UsersController::class, 'showLogs'])->name('logs');
+    });
+
+    // User Events Routes
+    Route::prefix('user/events')->name('user.events.')->group(function () {
+        Route::get('/view', [EventController::class, 'view'])->name('view');
+    });
+
+    // Routes for notifications
+    Route::prefix('user/notifications')->name('user.notifications.')->group(function () {
+        Route::get('/mark-read/{id}', [NotificationController::class, 'markRead'])->name('markRead');
+        Route::get('/mark-all-read', [NotificationController::class, 'markAllRead'])->name('markAllRead');
     });
 });
-

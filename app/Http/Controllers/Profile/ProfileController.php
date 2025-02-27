@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\logs;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+
+
 
 class ProfileController extends Controller
 {
@@ -27,7 +30,10 @@ class ProfileController extends Controller
         }
 
         $user->save();
-
+        logs::create([
+            'user_id' => $user->id,
+            'description' => "User {$user->name} updated their profile."
+        ]);
         return redirect()->route('user.account.profile.edit')->with('success', 'Profile updated successfully.');
     }
 

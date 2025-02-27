@@ -10,8 +10,8 @@
         <a href="/home" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
-          <img src="{{asset('storage/images/doctor-80.png')}}" alt="" style="width: 50px;">
-          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">AMHS</span>
+          <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -34,12 +34,26 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fas fa-calendar-check"></i>
+            <div data-i18n="Layouts">Events</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('user.events.view') }}" class="menu-link">
+                <div data-i18n="Without navbar">View Events</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-regular fa-calendar"></i>
             <div data-i18n="Layouts">Appointments</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="layouts-without-menu.html" class="menu-link">
+              <a href="{{ route('user.appointments.calendar') }}" class="menu-link">
                 <div data-i18n="Without menu">Appointment Calendar</div>
               </a>
             </li>
@@ -57,7 +71,7 @@
           </ul>
         </li>
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Acoounts</span>
+          <span class="menu-header-text">Accounts</span>
         </li>
         <li class="menu-item {{$ACTIVEPROFILE === 'ACCOUNT' ? 'active' : ''}}">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -70,13 +84,8 @@
                 <div data-i18n="Account">Account</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="pages-account-settings-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li> -->
             <li class="menu-item">
-              <a href="{{route('settings')}}" class="menu-link">
+              <a href="{{route('user.settings')}}" class="menu-link">
                 <div data-i18n="Notifications">Settings</div>
               </a>
             </li>
@@ -89,33 +98,16 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <i class="menu-icon tf-icons bx bx-file"></i>
             <div data-i18n="Misc">Misc</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="{{ route('user.misc.logs') }}" class="menu-link">
+                <div data-i18n="Under Maintenance">Logs</div>
               </a>
             </li>
           </ul>
-        </li>
-        <!-- Components -->
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-          <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-          </a>
         </li>
       </ul>
     </aside>
@@ -138,9 +130,6 @@
           <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              <!-- <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                aria-label="Search..." /> -->
             </div>
 
           </div>
@@ -148,7 +137,6 @@
 
           <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
-            <!--  -->
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -181,7 +169,7 @@
                   <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="{{route('user.account.profile')}}">
                     <i class="bx bx-user me-2"></i>
                     <span class="align-middle">My Profile</span>
                   </a>
@@ -192,15 +180,13 @@
                     <span class="align-middle">Settings</span>
                   </a>
                 </li>
-                <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li> -->
+                <li>
+                  <a class="dropdown-item" href="{{ route('user.misc.logs') }}">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <span class="align-middle">Logs</span>
+                  </a>
+                </li>
+
                 <li>
                   <div class="dropdown-divider"></div>
                 </li>
@@ -225,79 +211,101 @@
 
       <!-- Content wrapper -->
       <div class="content-wrapper">
-    <!-- Content -->
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Account</h4>
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Account</h4>
 
-        <div class="row">
+          <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
-                    </li>
-                </ul>
+              <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                <li class="nav-item">
+                  <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
+                </li>
+              </ul>
 
-                <div class="card mb-4">
-                    <h5 class="card-header">Profile Details</h5>
-                    <!-- Account -->
-                    <hr class="my-0" />
+              <div class="card mb-4">
+                <h5 class="card-header">Profile Details</h5>
+                <!-- Account -->
+                <hr class="my-0" />
 
-                    <!-- Display Success Message -->
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    <div class="card-body">
-                        <!-- Display validation errors -->
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <!-- Profile Update Form -->
-                        <form action="{{ route('user.account.profile.update') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')  <!-- Overriding the method to PUT -->
-                            
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
-                            </div>
-
-                            
-                            <div class="mb-3">
-    <label for="avatar" class="form-label">Profile Picture</label>
-    <input type="file" id="avatarInput" name="avatar" class="form-control mt-2" accept="image/*">
-    <img id="uploadedAvatar" 
-         src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
-         alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
-</div>
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
-                        </form>
-                    </div>
+                <!-- Display Success Message -->
+                @if(session('success'))
+                <div class="alert alert-success">
+                  {{ session('success') }}
                 </div>
-            </div>
-        </div>
-    </div>
-      <!-- Content wrapper -->
-    </div>
-    <!-- / Layout page -->
-  </div>
+                @endif
 
-  <!-- Overlay -->
-  <div class="layout-overlay layout-menu-toggle"></div>
-</div>
-<!-- / Layout wrapper -->
-@endsection
+                <div class="card-body">
+                  <!-- Display validation errors -->
+                  @if ($errors->any())
+                  <div class="alert alert-danger">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                  @endif
+
+                  <!-- Profile Update Form -->
+                  <form action="{{ route('user.account.profile.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT') <!-- Overriding the method to PUT -->
+
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                    </div>
+
+
+                    <div class="mb-3">
+                      <label for="avatar" class="form-label">Profile Picture</label>
+                      <input type="file" id="avatarInput" name="avatar" class="form-control mt-2" accept="image/*">
+                      <img id="uploadedAvatar"
+                        src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
+                        alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Content wrapper -->
+      </div>
+      <footer class="content-footer footer bg-footer-theme">
+        <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+          <div class="mb-2 mb-md-0">
+            ©
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            , made with ❤️ by
+            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+          </div>
+          <div>
+            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
+
+            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+              target="_blank" class="footer-link me-4">Documentation</a>
+
+            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
+              class="footer-link me-4">Support</a>
+          </div>
+        </div>
+      </footer>
+      <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+  </div>
+  <!-- / Layout wrapper -->
+  @endsection

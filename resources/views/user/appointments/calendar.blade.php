@@ -10,8 +10,8 @@
         <a href="/home" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
-          <img src="{{asset('storage/images/doctor-80.png')}}" alt="" style="width: 50px;">
-          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">AMHS</span>
+          <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -57,7 +57,7 @@
           </ul>
         </li>
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Acoounts</span>
+          <span class="menu-header-text">Accounts</span>
         </li>
         <li class="menu-item ">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -76,12 +76,12 @@
               </a>
             </li> -->
             <li class="menu-item">
-              <a href="{{route('settings')}}" class="menu-link">
+              <a href="{{route('user.settings')}}" class="menu-link">
                 <div data-i18n="Notifications">Settings</div>
               </a>
             </li>
             <li class="menu-item ">
-              <a href="" class="menu-link">
+              <a href="{{route('user.account.profile.edit')}}" class="menu-link">
                 <div data-i18n="Notifications">Update Profile</div>
               </a>
             </li>
@@ -89,56 +89,16 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div data-i18n="Authentications">Authentications</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Login</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Register</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Forgot Password</div>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <i class="menu-icon tf-icons bx bx-file"></i>
             <div data-i18n="Misc">Misc</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="{{ route('user.misc.logs') }}" class="menu-link">
+                <div data-i18n="Under Maintenance">Logs</div>
               </a>
             </li>
           </ul>
-        </li>
-        <!-- Components -->
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-          <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-          </a>
         </li>
       </ul>
     </aside>
@@ -161,9 +121,6 @@
           <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              <!-- <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                aria-label="Search..." /> -->
             </div>
 
           </div>
@@ -171,7 +128,6 @@
 
           <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
-            <!--  -->
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -215,15 +171,13 @@
                     <span class="align-middle">Settings</span>
                   </a>
                 </li>
-                <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li> -->
+
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <span class="align-middle">Logs</span>
+                  </a>
+                </li>
                 <li>
                   <div class="dropdown-divider"></div>
                 </li>
@@ -396,7 +350,9 @@
     </div>
 
     <!-- Content wrapper -->
+     
   </div>
+  
   <!-- / Layout page -->
 
 </div>
@@ -404,5 +360,6 @@
 <!-- Overlay -->
 <div class="layout-overlay layout-menu-toggle"></div>
 </div>
+
 <!-- / Layout wrapper -->
 @endsection

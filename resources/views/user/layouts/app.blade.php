@@ -14,7 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Links -->
-    <link rel="icon" type="image/x-icon" href="{{asset('storage/images/clinic-100.png')}}" />
+    <link rel="icon" type="image/x-icon" href="{{asset('storage/images/Adobe Express - file.png')}}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Fonts -->
@@ -49,7 +49,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Additional links -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
- 
+
     <!-- css link -->
     <link rel="stylesheet" href="{{asset('css/toggle.css')}}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -58,6 +58,7 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('css/drag.css')}}">
+    <script src="{{ asset('js/notification.js') }}"></script>
 </head>
 
 <body>
@@ -105,7 +106,10 @@
     <!-- Drag and Drop -->
     <script src="{{asset('js/dragDrop.js')}}"></script>
     <!-- doctors -->
-     <script src="{{asset('js/doctors.js')}}"></script>
+    <script src="{{asset('js/doctors.js')}}"></script>
+
+    <!-- Icon -->
+     <script src="{{ asset('js/icon.js') }}"></script>
     <!-- additional script -->
     <script src="{{asset('sneat/js/linegraph.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -117,6 +121,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <script src="{{asset('js/time_limit.js')}}"></script>
 </body>
 
 </html>

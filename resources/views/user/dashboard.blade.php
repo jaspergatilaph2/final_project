@@ -1,12 +1,9 @@
 @extends('user.layouts.app')
 
 @section('content')
-@section('content')
-<!-- @if (session('error'))
-  <div class="alert alert-danger">
-    {{ session('error') }}
-  </div>
-@endif -->
+@php
+$notifications = auth()->user()->unreadNotifications;
+@endphp
 <div class="layout-wrapper layout-content-navbar">
   <div class="layout-container">
     <!-- Menu -->
@@ -16,8 +13,8 @@
         <a href="/home" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
-          <img src="{{asset('storage/images/doctor-80.png')}}" alt="" style="width: 50px;">
-          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">AMHS</span>
+          <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -40,6 +37,20 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fas fa-calendar-check"></i>
+            <div data-i18n="Layouts">Events</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('user.events.view') }}" class="menu-link">
+                <div data-i18n="Without navbar">View Events</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-regular fa-calendar"></i>
             <div data-i18n="Layouts">Appointments</div>
           </a>
 
@@ -63,7 +74,7 @@
           </ul>
         </li>
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Acoounts</span>
+          <span class="menu-header-text">Accounts</span>
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -76,11 +87,6 @@
                 <div data-i18n="Account">Account</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="pages-account-settings-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li> -->
             <li class="menu-item">
               <a href="{{route('user.settings')}}" class="menu-link">
                 <div data-i18n="Notifications">Settings</div>
@@ -93,58 +99,18 @@
             </li>
           </ul>
         </li>
-        <!-- <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div data-i18n="Authentications">Authentications</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Login</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Register</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Forgot Password</div>
-              </a>
-            </li>
-          </ul>
-        </li> -->
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <i class="menu-icon tf-icons bx bx-file"></i>
             <div data-i18n="Misc">Misc</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="{{ route('user.misc.logs') }}" class="menu-link">
+                <div data-i18n="Under Maintenance">Logs</div>
               </a>
             </li>
           </ul>
-        </li>
-        <!-- Components -->
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-          <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-          </a>
         </li>
       </ul>
     </aside>
@@ -167,9 +133,7 @@
           <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              <!-- <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                aria-label="Search..." /> -->
+
             </div>
 
           </div>
@@ -180,27 +144,52 @@
             <li class="nav-item dropdown lh-1 me-3">
               <a class="nav-link position-relative dropdown-toggle" href="#" id="notificationDropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-bell fs-3"></i>
-                <!-- Notification Badge -->
+                <i id="notification-icon" class="menu-icon 
+        @if(auth()->check() && auth()->user()->unreadNotifications->count() > 0) 
+            fa-solid 
+        @else 
+            fa-regular 
+        @endif 
+        fa-envelope">
+                </i>
+
+                @if(auth()->check() && auth()->user()->unreadNotifications->count() > 0)
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  <!-- Example notification count -->
+                  {{ auth()->user()->unreadNotifications->count() }}
                   <span class="visually-hidden">unread notifications</span>
                 </span>
+                @endif
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown"
                 style="min-width: 300px;">
-                <li class="dropdown-item text-center text-muted">No new notifications</li>
+                @if(auth()->check())
+                @forelse(auth()->user()->unreadNotifications as $notification)
+                <li class="dropdown-item d-flex align-items-start">
+                  <div class="flex-grow-1">
+                    <p class="mb-1 fw-semibold">{{ $notification->data['message'] }}</p>
+                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                  </div>
+                  <a href="{{ route('user.notifications.markRead', $notification->id) }}" class="btn btn-sm btn-link text-decoration-none">
+                    <i class="fa-solid fa-check"></i>
+                  </a>
+                </li>
                 <!-- Example notifications -->
-                <hr class="dropdown-divider">
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                @empty
             </li>
-            <li>
-              <a class="dropdown-item text-center" href="#">
-                <strong>Mark all as read</strong>
+            <li class="dropdown-item text-center text-muted py-3">No new notifications</li>
+            @endforelse
+            <li class="text-center">
+              <a class="dropdown-item fw-bold text-primary" href="{{ route('user.notifications.markAllRead') }}">
+                Mark all as read
               </a>
             </li>
+            @else
+            <li class="dropdown-item text-center text-muted py-3">Please log in to see notifications</li>
+            @endif
           </ul>
-          </li>
-
           <!-- User Dropdown -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -242,6 +231,12 @@
                 </a>
               </li>
               <li>
+                <a class="dropdown-item" href="{{ route('user.misc.logs') }}">
+                  <i class="menu-icon tf-icons bx bx-file"></i>
+                  <span class="align-middle">Logs</span>
+                </a>
+              </li>
+              <li>
                 <div class="dropdown-divider"></div>
               </li>
               <li>
@@ -273,31 +268,43 @@
                   <div class="card-body">
                     <h5 class="card-title">Welcome {{Auth::user()->name}}</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 pt-3">
-                <div class="card" style="height: 400px;">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      Appointments
-                    </h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <canvas id="lineGraph" width="400" height="200"></canvas>
-                  </div>
-                </div>
-              </div>
 
+                  </div>
+                </div>
+              </div>
               <div class="col-md-4 pt-3">
-                <!-- New Card -->
                 <div class="card" style="height: 400px;">
                   <div class="card-body">
                     <h5 class="card-title">
-                      Appointments
+                      Announcements Of Appointments Status
                     </h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <canvas id="lineGraph" width="400" height="200"></canvas>
+
+                    @foreach(\App\Models\Appointment::with('doctor')->get(['id', 'status', 'doctor_id', 'updated_at']) as $appointment)
+                    @php
+                    $clearingTime = \Carbon\Carbon::parse($appointment->updated_at)->addSeconds(50);
+                    $remainingTime = now()->diffInSeconds($clearingTime, false);
+                    @endphp
+
+                    <div class="appointment-item" data-appointment-id="{{ $appointment->id }}"
+                      data-clear-time="{{ $clearingTime->timestamp }}"
+                      @if($remainingTime <=0) style="display:none;" @endif>
+
+                      <p class="card-text" style="font-size:1.5em; font-weight: bold; padding-top:1.5em;">
+                        {{ $appointment->doctor->name }} - Status: {{ $appointment->status }}
+
+                        @if($appointment->status === 'Confirmed' && $remainingTime > 0)
+                        <br>
+                        <small class="text-muted">
+                          Clears in: <span class="countdown" data-time="{{ $clearingTime->timestamp }}"></span>
+                        </small>
+                        @elseif($remainingTime <= 0)
+                          <br>
+                          <small class="text-muted text-danger">Cleared</small>
+                          @endif
+                      </p>
+                    </div>
+                    @endforeach
                   </div>
                 </div>
               </div>
@@ -318,7 +325,7 @@
                 document.write(new Date().getFullYear());
               </script>
               , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">John Jasper Gatila</a>
+              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
             </div>
             <div>
               <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>

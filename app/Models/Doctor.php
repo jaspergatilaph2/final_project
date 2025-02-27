@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
-    protected $fillable = ['name', 'company', 'email', 'phone', 'image'];
+    protected $fillable = ['name', 'company', 'email', 'phone', 'image', 'is_available'];
+    protected $casts = [
+        'is_available' => 'array',
+    ];
+    
     public function appointments()
     {
         return $this->hasMany(Appointment::class); // A doctor can have many appointments

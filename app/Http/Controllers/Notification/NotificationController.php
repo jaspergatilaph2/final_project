@@ -3,43 +3,32 @@
 namespace App\Http\Controllers\Notification;
 
 use App\Http\Controllers\Controller;
+use App\Models\events;
+use App\Models\User;
+use App\Notifications\EventNotifications;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class NotificationController extends Controller
 {
-    public function index()
+    // Fetch unread notifications
+    public function markRead($id)
     {
-        $notifications = Auth::user()->notifications;
+        $notification = auth()->user()->notifications->where('id', $id)->first();
 
-        return view('user.notifications.index', compact('notifications'));
-    }
-
-    public function markAsRead($notificationId)
-    {
-        $notification = Auth::user()->notifications()->findOrFail($notificationId);
-        $notification->markAsRead();
-
-        $notificationId = $notification->id;
-        return redirect()->route('user.account.notifications.read', ['notification' => $notification->id]);
-    }
-
-    public function readAll()
-    {
-        $user = auth()->user();
-
-        $notifications = $user->unreadNotifications; 
-
-        foreach ($notifications as $notification) {
+        if ($notification) {
             $notification->markAsRead();
         }
 
-        return redirect()->back()->with('success', 'All notifications marked as read.');
+        return redirect()->back();
     }
 
-    public function notifications()
+    public function markAllRead()
     {
-        return auth()->user()->morphMany(\Illuminate\Notifications\Notification::class, 'notifiable');
+        auth()->user()->unreadNotifications->markAsRead();
+
+        return redirect()->back();
     }
 }

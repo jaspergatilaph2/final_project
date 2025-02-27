@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Appointment;
+use App\Models\logs;
+
+use function view;
 
 class DoctorsController extends Controller
 {
@@ -18,7 +21,7 @@ class DoctorsController extends Controller
     {
         return view('admin.doctors.create', [
             'activeMenu' => 'Doctors',
-            'activeSub' => 'Add Doctors' 
+            'activeSub' => 'Add Doctors'
         ]);
     }
 
@@ -34,7 +37,7 @@ class DoctorsController extends Controller
     public function destroy(Doctor $doctor)
     {
         $doctor->delete();
-
+        logs::create(['description' => "Doctor {$doctor->name} successfully deleted."]);
         return redirect()->route('admin.doctors.view')->with('success', 'Doctor deleted successfully.');
     }
 
@@ -47,15 +50,29 @@ class DoctorsController extends Controller
             'email' => 'required|email|unique:doctors,email',
             'phone' => 'required|string|max:15',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'is_available' => 'required|array', // Ensure it's a array, not an boolean
+            'specialization' => 'required|string|max:255',
         ]);
 
+        // Handle Image Upload
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('doctor_images', 'public');
-            $validatedData['image'] = $imagePath; 
+        } else {
+            $imagePath = null;
         }
 
-        Doctor::create($validatedData);
+        // Create Doctor Record
+        $doctor = new Doctor();
+        $doctor->name = $validatedData['name'];
+        $doctor->company = $validatedData['company'] ?? null;
+        $doctor->email = $validatedData['email'];
+        $doctor->phone = $validatedData['phone'];
+        $doctor->image = $imagePath;
+        $doctor->is_available = $validatedData['is_available'];
+        $doctor->specialization = $validatedData['specialization'];
+        $doctor->save();
 
+        logs::create(['description' => "Doctor {$doctor->name} successfully added."]);
         return redirect()->back()->with('success', 'Data has been successfully saved!');
     }
 
@@ -68,31 +85,38 @@ class DoctorsController extends Controller
 
     public function update(Request $request, Doctor $doctor)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'company' => 'nullable|string|max:255',
+            'email' => 'required|email|max:255|unique:doctors,email,' . $doctor->id,
             'phone' => 'required|string|max:20',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'is_available' => 'required|array', // Ensure it's an array
+            'specialization'=> 'required|string|max:255',
         ]);
 
-        $doctor->name = $request->input('name');
-        $doctor->company = $request->input('company');
-        $doctor->email = $request->input('email');
-        $doctor->phone = $request->input('phone');
+        $doctor->name = $validatedData['name'];
+        $doctor->company = $validatedData['company'] ?? null;
+        $doctor->email = $validatedData['email'];
+        $doctor->phone = $validatedData['phone'];
+        $doctor->is_available = json_encode($validatedData['is_available']); // Convert array to JSON
+        $doctor->specialization = $validatedData['specialization'];
 
         if ($request->hasFile('image')) {
-            $filePath = $request->file('image')->store('doctors', 'public');
-            $doctor->image = $filePath;
+            if ($doctor->image) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($doctor->image);
+            }
+            $doctor->image = $request->file('image')->store('doctors', 'public');
         }
 
         $doctor->save();
-
+        logs::create(['description' => "Doctor {$doctor->name} successfully updated."]);
         return redirect()->route('admin.doctors.view')->with('success', 'Doctor updated successfully!');
     }
+
     public function show($id)
     {
-        $doctor = Doctor::findOrFail($id); 
+        $doctor = Doctor::findOrFail($id);
         return view('user.doctor.show', compact('doctor'));
     }
 }

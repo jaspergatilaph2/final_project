@@ -10,8 +10,8 @@
         <a href="/home" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
-          <img src="{{asset('storage/images/doctor-80.png')}}" alt="" style="width: 50px;">
-          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">AMHS</span>
+          <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -34,6 +34,25 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fas fa-calendar-check"></i>
+            <div data-i18n="Layouts">Events</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('admin.events.create') }}" class="menu-link">
+                <div data-i18n="Without menu">Create Events</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('admin.events.view') }}" class="menu-link">
+                <div data-i18n="Without navbar">View Events</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-regular fa-calendar"></i>
             <div data-i18n="Layouts">Appointments</div>
           </a>
 
@@ -44,17 +63,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="{{route('admin.appointments.create')}}" class="menu-link">
-                <div data-i18n="Fluid">Book Appointments</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="layouts-fluid.html" class="menu-link">
-                <div data-i18n="Fluid">Edit Appointments</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="layouts-without-navbar.html" class="menu-link">
+              <a href="{{ route('admin.appointments.view') }}" class="menu-link">
                 <div data-i18n="Without navbar">View Appointments</div>
               </a>
             </li>
@@ -69,7 +78,7 @@
 
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="layouts-without-menu.html" class="menu-link">
+              <a href="{{ route('admin.doctors.create') }}" class="menu-link">
                 <div data-i18n="Without menu">Add Doctors</div>
               </a>
             </li>
@@ -92,7 +101,7 @@
         </li>
 
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Acoounts</span>
+          <span class="menu-header-text">Accounts</span>
         </li>
         <li class="menu-item {{$activeMenu === 'Dashboard' ? 'active' : ''}}">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -111,7 +120,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
+              <a href="{{route('admin.accounts.profile.edit')}}" class="menu-link">
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
@@ -119,33 +128,16 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <i class="menu-icon tf-icons bx bx-file"></i>
             <div data-i18n="Misc">Misc</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="{{route('admin.misc.logs')}}" class="menu-link">
+                <div data-i18n="Under Maintenance">Logs</div>
               </a>
             </li>
           </ul>
-        </li>
-        <!-- Components -->
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-          <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-          </a>
         </li>
       </ul>
     </aside>
@@ -193,7 +185,8 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{asset('sneat/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                    class="w-px-120 h-px-120 rounded-circle" />
                 </div>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -202,7 +195,8 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{asset('sneat/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                            class="w-px-120 h-px-120 rounded-circle" />
                         </div>
                       </div>
                       <div class="flex-grow-1">
@@ -227,15 +221,12 @@
                     <span class="align-middle">Settings</span>
                   </a>
                 </li>
-                <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li> -->
+                <li>
+                  <a class="dropdown-item" href="{{route('admin.misc.logs')}}">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <span class="align-middle">Logs</span>
+                  </a>
+                </li>
                 <li>
                   <div class="dropdown-divider"></div>
                 </li>
@@ -287,7 +278,7 @@
                 document.write(new Date().getFullYear());
               </script>
               , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">John Jasper Gatila</a>
+              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
             </div>
             <div>
               <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>

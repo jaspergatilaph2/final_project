@@ -4,18 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title }}</title>
+    <title>SLSU - BONTOC CAMPUS</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ asset('storage/images/clinic-64.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('storage/images/Adobe Express - file.png') }}" type="image/x-icon">
     <style>
         .hero-section {
-            background: url('{{ asset('background/seo-2126-bs-health-concept-medical-healt-340085269-1200x675.jpg') }}') center center no-repeat;
+            background: url("/background/seo-2126-bs-health-concept-medical-healt-340085269-1200x675.jpg") center center no-repeat;
             background-size: cover;
             color: white;
             padding: 120px 0;
         }
+
 
         .feature-icon {
             font-size: 3rem;
@@ -47,7 +48,8 @@
         <!-- Navigation Bar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="#"> Advance Health Management System</a>
+                <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;"> &emsp;
+                <a class="navbar-brand" href="#"> Southern Leyte State U- Bontoc Campus</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -55,20 +57,20 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         @if (Route::has('login'))
-                            @auth
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/home') }}">Home</a>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Log in</a>
-                                </li>
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                    </li>
-                                @endif
-                            @endauth
+                        @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                        </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        </li>
+                        @endif
+                        @endauth
                         @endif
                     </ul>
                 </div>
@@ -87,8 +89,8 @@
                 <div class="d-flex gap-3 justify-content-center">
                     <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Log In</a>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg"
-                            style="border: 2px solid black; color:black;">Register</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg"
+                        style="border: 2px solid black; color:black;">Register</a>
                     @endif
                 </div>
             </div>

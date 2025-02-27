@@ -1,12 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@section('content')
-<!-- @if (session('error'))
-  <div class="alert alert-danger">
-    {{ session('error') }}
-  </div>
-@endif -->
+
 <div class="layout-wrapper layout-content-navbar">
   <div class="layout-container">
     <!-- Menu -->
@@ -16,11 +11,11 @@
         <a href="/home" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
-          <img src="{{asset('storage/images/doctor-80.png')}}" alt="" style="width: 50px;">
-          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">AMHS</span>
+          <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
         </a>
 
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+        <a href="javascript:void(0);" id="menu-toggle" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
           <i class="bx bx-chevron-left bx-sm align-middle"></i>
         </a>
       </div>
@@ -40,6 +35,25 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fas fa-calendar-check"></i>
+            <div data-i18n="Layouts">Events</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('admin.events.create') }}" class="menu-link">
+                <div data-i18n="Without menu">Create Events</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{ route('admin.events.view') }}" class="menu-link">
+                <div data-i18n="Without navbar">View Events</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon fa-regular fa-calendar"></i>
             <div data-i18n="Layouts">Appointments</div>
           </a>
 
@@ -74,21 +88,11 @@
                 <div data-i18n="Without navbar">View Doctors</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="layouts-container.html" class="menu-link">
-                <div data-i18n="Container">Book Appointments</div>
-              </a>
-            </li> -->
-            <!-- <li class="menu-item">
-              <a href="layouts-fluid.html" class="menu-link">
-                <div data-i18n="Fluid">Edit Appointments</div>
-              </a>
-            </li> -->
           </ul>
         </li>
 
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Acoounts</span>
+          <span class="menu-header-text">Accounts</span>
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -107,7 +111,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
+              <a href="{{route('admin.accounts.profile.edit')}}" class="menu-link">
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>
@@ -115,33 +119,16 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <i class="menu-icon tf-icons bx bx-file"></i>
             <div data-i18n="Misc">Misc</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="{{route('admin.misc.logs')}}" class="menu-link">
+                <div data-i18n="Under Maintenance">Logs</div>
               </a>
             </li>
           </ul>
-        </li>
-        <!-- Components -->
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-          <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-          </a>
         </li>
       </ul>
     </aside>
@@ -164,32 +151,19 @@
           <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              <!-- <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                aria-label="Search..." /> -->
+              
             </div>
           </div>
           <!-- /Search -->
 
           <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
-            <!-- <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
-                </li> -->
-
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{asset('sneat/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                    class="w-px-120 h-px-120 rounded-circle" />
                 </div>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -198,7 +172,8 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{asset('sneat/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                            class="w-px-120 h-px-120 rounded-circle" />
                         </div>
                       </div>
                       <div class="flex-grow-1">
@@ -212,7 +187,7 @@
                   <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="{{route('admin.accounts.profile')}}">
                     <i class="bx bx-user me-2"></i>
                     <span class="align-middle">My Profile</span>
                   </a>
@@ -223,15 +198,13 @@
                     <span class="align-middle">Settings</span>
                   </a>
                 </li>
-                <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li> -->
+                <li>
+                  <a class="dropdown-item" href="{{route('admin.misc.logs')}}">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <span class="align-middle">Logs</span>
+                  </a>
+                </li>
+
                 <li>
                   <div class="dropdown-divider"></div>
                 </li>
@@ -263,29 +236,24 @@
               <div class="col-md-4 pt-3">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Welcome {{Auth::user()->name}}</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <h5 class="card-title">Appointments Number</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> appointments</p>
+                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
+                      <strong style="font-size:8.5rem; text-align:center;">{{\App\Models\Appointment::count()}}</strong>
+                    </div>
+                    
                   </div>
                 </div>
               </div>
               <div class="col-md-4 pt-3">
-                <!-- <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <i class="fas fa-calendar-check"></i>Appointments
-                    </h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <canvas id="lineGraph" width="400" height="200"></canvas>
-                  </div>
-                </div> -->
+               
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                       <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                         <div class="card-title">
                           <h5 class="text-nowrap mb-2">Appointments Report</h5>
-                          <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                          <span class="badge bg-label-warning rounded-pill">Year</span>
                         </div>
                         <div class="mt-sm-auto">
                           <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i>
@@ -300,45 +268,18 @@
                 </div>
               </div>
               <div class="col-md-4 pt-3">
-                <!-- New Card -->
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <h5 class="card-title">DOCTORS ADDED NUMBERS</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> Doctors Added.</p>
                     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                      <strong style="font-size:8.5rem; text-align:center;">{{ \App\Models\Doctor::count() }}</strong>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 pt-3">
-                <!-- New Card -->
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 pt-3">
-                <!-- New Card -->
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 pt-3">
-                <!-- New Card -->
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -355,7 +296,7 @@
                 document.write(new Date().getFullYear());
               </script>
               , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">John Jasper Gatila</a>
+              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
             </div>
             <div>
               <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
+use App\Models\logs;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -26,24 +27,49 @@ class AppointmentController extends Controller
         ]);
     }
 
-    public function updateStatus($id, $status)
+    public function updateStatus(Request $request, $id, $status)
     {
         $appointment = Appointment::findOrFail($id);
 
-        if ($status === 'pending' || $status === 'confirmed') {
+        if (in_array($status, ['pending', 'confirmed', 'cancelled'])) {
             $appointment->status = $status;
             $appointment->save();
 
+            // logs Status Changes
             if ($status === 'pending') {
+                logs::create([
+                    'user_id' => $appointment->user_id,
+                    'description' => "User #{$appointment->user_id} booked an appointment (ID: {$appointment->id}) with Doctor #{$appointment->doctor_id}. Status: Pending."
+                ]);
                 session()->flash('success', 'Appointment is now pending.');
-            } else {
+            } elseif ($status === 'confirmed') {
+                logs::create([
+                    'user_id' => $appointment->user_id,
+                    'description' => "User " . ($appointment->user?->name ?? 'Unknown User') .
+                        " booked an appointment. " .
+                        "Appointment with Doctor " .
+                        ($appointment->doctor?->name ?? 'Unknown Doctor') .
+                        " was confirmed by Admin."
+                ]);
                 session()->flash('success', 'Appointment confirmed successfully.');
+            } elseif ($status === 'cancelled') {
+                logs::create([
+                    'user_id' => $appointment->user_id,
+                    'description' => "User " . ($appointment->user?->name ?? "Unknown User") . " Booked an appointment. ". "Appointment with Doctor ". 
+                    ($appointment->doctor?->name ?? "Unknown Doctor") ." was cancelled by Admin"
+                ]);
+                session()->flash('success', 'Appointment cancelled successfully.');
             }
-        } else {
-            session()->flash('error', 'Invalid status update.');
+
             return redirect()->back();
         }
 
+        // If status is invalid, logs it and show an error message
+        logs::create([
+            'user_id' => auth()->id(),
+            'description' => "Attempted invalid status update on Appointment #{$appointment->id}."
+        ]);
+        session()->flash('error', 'Invalid status update.');
         return redirect()->back();
     }
 
@@ -80,4 +106,29 @@ class AppointmentController extends Controller
         ]);
     }
 
+    public function getAppointmentCount()
+    {
+        // Fetch the total number of appointments
+        $appointmentCount = Appointment::count();
+
+        // Return the count as a response in JSON format
+        return response()->json(['appointments' => $appointmentCount]);
+    }
+
+    public function destroy(Appointment $appointment)
+    {
+        try {
+            $appointment->delete();
+            logs::create([
+                'user_id' => $appointment->user_id,
+                'description' => "User " . ($appointment->user?->name ?? 'Unknown User') .
+                    " had their appointment with Doctor " . 
+                    ($appointment->doctor?->name ?? 'Unknown Doctor') . 
+                    " deleted by Admin."
+            ]);            
+            return redirect()->route('admin.appointments.view')->with('success', 'Appointment deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.appointments.view')->with('error', 'Failed to delete appointment.');
+        }
+    }
 }

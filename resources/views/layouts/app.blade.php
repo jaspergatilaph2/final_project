@@ -14,7 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Links -->
-    <link rel="icon" type="image/x-icon" href="{{asset('storage/images/clinic-100.png')}}" />
+    <link rel="icon" type="image/x-icon" href="{{asset('storage/images/Adobe Express - file.png')}}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Fonts -->
@@ -54,8 +54,7 @@
     <!-- css link -->
     <link rel="stylesheet" href="{{asset('css/toggle.css')}}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
+    <link rel="stylesheet" href="{{ asset('css/arrow_toggle.css') }}">
 </head>
 
 <body>
@@ -69,6 +68,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        
     </div>
 
 
@@ -91,10 +92,13 @@
     <!-- additional script -->
     <script src="{{asset('sneat/js/linegraph.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="{{asset('sneat/js/year.js')}}"></script>
+    <script src="{{asset('sneat/js/appointments-count.js')}}"></script>
 
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="{{ asset('js/arrow_toggle.js') }}"></script>
 </body>
 
 </html>

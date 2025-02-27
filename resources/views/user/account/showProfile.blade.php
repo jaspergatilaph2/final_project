@@ -10,8 +10,8 @@
         <a href="/home" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
-          <img src="{{asset('storage/images/doctor-80.png')}}" alt="" style="width: 50px;">
-          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">AMHS</span>
+          <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -34,12 +34,26 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fas fa-calendar-check"></i>
+            <div data-i18n="Layouts">Events</div>
+          </a>
+
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('user.events.view') }}" class="menu-link">
+                <div data-i18n="Without navbar">View Events</div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-regular fa-calendar"></i>
             <div data-i18n="Layouts">Appointments</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="layouts-without-menu.html" class="menu-link">
+              <a href="{{route('user.appointments.calendar')}}" class="menu-link">
                 <div data-i18n="Without menu">Appointment Calendar</div>
               </a>
             </li>
@@ -57,7 +71,7 @@
           </ul>
         </li>
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Acoounts</span>
+          <span class="menu-header-text">Accounts</span>
         </li>
         <li class="menu-item {{$ACTIVEPROFILE === 'ACCOUNT' ? 'active' : ''}}">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -70,11 +84,6 @@
                 <div data-i18n="Account">Account</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="pages-account-settings-notifications.html" class="menu-link">
-                <div data-i18n="Notifications">Notifications</div>
-              </a>
-            </li> -->
             <li class="menu-item">
               <a href="{{route('user.settings')}}" class="menu-link">
                 <div data-i18n="Notifications">Settings</div>
@@ -87,58 +96,18 @@
             </li>
           </ul>
         </li>
-        <!-- <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div data-i18n="Authentications">Authentications</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Login</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Register</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Forgot Password</div>
-              </a>
-            </li>
-          </ul>
-        </li> -->
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <i class="menu-icon tf-icons bx bx-file"></i>
             <div data-i18n="Misc">Misc</div>
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
-                <div data-i18n="Under Maintenance">Under Maintenance</div>
+              <a href="{{ route('user.misc.logs') }}" class="menu-link">
+                <div data-i18n="Under Maintenance">Logs</div>
               </a>
             </li>
           </ul>
-        </li>
-        <!-- Components -->
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-          <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Support</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank"
-            class="menu-link">
-            <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-          </a>
         </li>
       </ul>
     </aside>
@@ -215,15 +184,12 @@
                     <span class="align-middle">Settings</span>
                   </a>
                 </li>
-                <!-- <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li> -->
+                <li>
+                  <a class="dropdown-item" href="{{ route('user.misc.logs') }}">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <span class="align-middle">Logs</span>
+                  </a>
+                </li>
                 <li>
                   <div class="dropdown-divider"></div>
                 </li>
@@ -282,7 +248,15 @@
                       <input class="form-control" type="email" id="email" name="email" value="{{ $user->email }}"
                         readonly />
                     </div>
+
+                    <!-- Role Field -->
+                    <div class="mb-3 col-md-6">
+                      <label for="email" class="form-label">Role</label>
+                      <input class="form-control" type="email" id="email" name="email" value="{{ auth()->user()->role === 'Admin' ? 'Admin' : 'User' }}"
+                        readonly />
+                    </div>
                   </div>
+
 
                   <!-- Image Field -->
                   <div class="mb-3">
@@ -312,11 +286,11 @@
                 document.write(new Date().getFullYear());
               </script>
               , made with ❤️ by
-              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+              <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
             </div>
             <div>
               <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+              <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
 
               <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
                 target="_blank" class="footer-link me-4">Documentation</a>
