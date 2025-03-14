@@ -41,20 +41,21 @@ class UsersController extends Controller
             'reason' => 'required|string|max:255',
         ]);
 
-        // Check if the doctor is available (assuming 'is_available' field is a boolean in the doctors table)
+        // Check if the doctor is available
         $doctor = Doctor::find($request->doctor_id);
 
         if (!$doctor || !$doctor->is_available) {
             return back()->withErrors(['doctor_id' => 'The selected doctor is not available.']);
         }
 
-        // Check if the doctor is already booked for the requested date and time
-        $existingAppointment = Appointment::where('doctor_id', $request->doctor_id)
+        // Count existing appointments for the doctor on the selected date
+        $appointmentCount = Appointment::where('doctor_id', $request->doctor_id)
             ->whereDate('appointment_date', $request->appointment_date)
-            ->exists();
+            ->count();
 
-        if ($existingAppointment) {
-            return back()->withErrors(['appointment_date' => 'The selected doctor is already booked for this date and time.']);
+        // Restrict to max 100 appointments per doctor per day
+        if ($appointmentCount >= 1000) {
+            return back()->withErrors(['appointment_date' => 'This doctor is fully booked for the selected date.']);
         }
 
         // Create a new appointment
@@ -65,7 +66,8 @@ class UsersController extends Controller
             'reason' => $request->reason,
         ]);
 
-        logs::create([
+        // Log the appointment booking
+        Logs::create([
             'user_id' => $appointment->user_id,
             'description' => "User " . ($appointment->user?->name ?? 'Unknown User') .
                 " booked an appointment with Doctor " .

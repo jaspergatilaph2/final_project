@@ -71,9 +71,19 @@ class EventController extends Controller
     }
 
 
-    public function viewEvents()
+    public function viewEvents(Request $request)
     {
-        $events = events::orderBy('date', 'desc')->paginate(10);
+        $notificationId = $request->input('notificationId');
+
+        if ($notificationId) {
+            $notification = auth()->user()->notifications->where('id', $notificationId)->first();
+            if ($notification) {
+                $notification->markAsRead(); // Mark as read
+            }
+        }
+
+        $events = Events::orderBy('date', 'desc')->paginate(10);
+
         return view('admin.events.view', [
             'ActiveViewMenu' => 'View',
             'ActiveViewSubMenu' => 'Events',
@@ -81,12 +91,13 @@ class EventController extends Controller
         ]);
     }
 
+
     public function view()
     {
         $events = events::orderBy('date', 'desc')->paginate(10);
         return view('user.events.view', [
             'ActiveMenu' => 'Events',
-            'ActiveSubMenu'=> 'View',
+            'ActiveSubMenu' => 'View',
             'events' => $events
         ]);
     }

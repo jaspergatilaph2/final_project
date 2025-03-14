@@ -166,8 +166,11 @@ $notifications = auth()->user()->unreadNotifications;
                 @forelse(auth()->user()->unreadNotifications as $notification)
                 <li class="dropdown-item d-flex align-items-start">
                   <div class="flex-grow-1">
-                    <p class="mb-1 fw-semibold">{{ $notification->data['message'] }}</p>
-                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                    <a href="{{ route('user.events.view', ['notificationId' => $notification->id]) }}"
+                      class="btn btn-sm btn-link text-decoration-none">
+                      <p class="mb-1 fw-semibold">{{ $notification->data['message'] }}</p>
+                      <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                    </a>
                   </div>
                   <a href="{{ route('user.notifications.markRead', $notification->id) }}" class="btn btn-sm btn-link text-decoration-none">
                     <i class="fa-solid fa-check"></i>

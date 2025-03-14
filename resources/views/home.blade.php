@@ -53,7 +53,7 @@
         </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon fa-regular fa-calendar"></i>
+            <i class="menu-icon fa-regular fa-calendar"></i>
             <div data-i18n="Layouts">Appointments</div>
           </a>
 
@@ -151,7 +151,7 @@
           <!-- Search -->
           <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-              
+
             </div>
           </div>
           <!-- /Search -->
@@ -241,12 +241,12 @@
                     <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
                       <strong style="font-size:8.5rem; text-align:center;">{{\App\Models\Appointment::count()}}</strong>
                     </div>
-                    
+
                   </div>
                 </div>
               </div>
               <div class="col-md-4 pt-3">
-               
+
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
@@ -256,9 +256,7 @@
                           <span class="badge bg-label-warning rounded-pill">Year</span>
                         </div>
                         <div class="mt-sm-auto">
-                          <small class="text-success text-nowrap fw-semibold"><i class="bx bx-chevron-up"></i>
-                            68.2%</small>
-                          <!-- <h3 class="mb-0">$84,686k</h3> -->
+                          <strong style="font-size:15px; text-align:center;" class="text-primary"><i class="bx bx-chevron-up"></i>{{\App\Models\Appointment::count()}} Appointments</strong>
                         </div>
                       </div>
                       <div id="profileReportChart"></div>
@@ -279,7 +277,7 @@
                   </div>
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>

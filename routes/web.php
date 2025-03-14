@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/create', [AppointmentController::class, 'create'])->name('create');
         Route::get('/view', [AppointmentController::class, 'viewAppointments'])->name('view');
         Route::post('/{id}/update-status/{status}', [AppointmentController::class, 'updateStatus'])->name('updateStatus');
-
+        
         //DELETE route
         Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('destroy');
     });
@@ -127,8 +127,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // User Events Routes
     Route::prefix('user/events')->name('user.events.')->group(function () {
-        Route::get('/view', [EventController::class, 'view'])->name('view');
+        Route::get('/view/{notificationId?}', [EventController::class, 'view'])->name('view');
     });
+
 
     // Routes for notifications
     Route::prefix('user/notifications')->name('user.notifications.')->group(function () {

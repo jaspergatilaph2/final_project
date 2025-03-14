@@ -55,8 +55,8 @@ class AppointmentController extends Controller
             } elseif ($status === 'cancelled') {
                 logs::create([
                     'user_id' => $appointment->user_id,
-                    'description' => "User " . ($appointment->user?->name ?? "Unknown User") . " Booked an appointment. ". "Appointment with Doctor ". 
-                    ($appointment->doctor?->name ?? "Unknown Doctor") ." was cancelled by Admin"
+                    'description' => "User " . ($appointment->user?->name ?? "Unknown User") . " Booked an appointment. " . "Appointment with Doctor " .
+                        ($appointment->doctor?->name ?? "Unknown Doctor") . " was cancelled by Admin"
                 ]);
                 session()->flash('success', 'Appointment cancelled successfully.');
             }
@@ -106,14 +106,27 @@ class AppointmentController extends Controller
         ]);
     }
 
-    public function getAppointmentCount()
+    public function getAppointment()
     {
-        // Fetch the total number of appointments
-        $appointmentCount = Appointment::count();
+        // Fetch appointments with associated doctor
+        $appointments = Appointment::with('doctor')->get();
 
-        // Return the count as a response in JSON format
-        return response()->json(['appointments' => $appointmentCount]);
+        // Prepare the event data for FullCalendar
+        $events = $appointments->map(function ($appointment) {
+            return [
+                'id' => $appointment->id,
+                'title' => $appointment->doctor->name, // Doctor's Name
+                'start' => $appointment->appointment_date, // Appointment Date
+            ];
+        });
+
+        // Return JSON response with structured data
+        return response()->json([
+            'appointments' => $events,
+            'count' => Appointment::count(), // Get total appointment count directly
+        ]);
     }
+
 
     public function destroy(Appointment $appointment)
     {
@@ -122,10 +135,10 @@ class AppointmentController extends Controller
             logs::create([
                 'user_id' => $appointment->user_id,
                 'description' => "User " . ($appointment->user?->name ?? 'Unknown User') .
-                    " had their appointment with Doctor " . 
-                    ($appointment->doctor?->name ?? 'Unknown Doctor') . 
+                    " had their appointment with Doctor " .
+                    ($appointment->doctor?->name ?? 'Unknown Doctor') .
                     " deleted by Admin."
-            ]);            
+            ]);
             return redirect()->route('admin.appointments.view')->with('success', 'Appointment deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->route('admin.appointments.view')->with('error', 'Failed to delete appointment.');

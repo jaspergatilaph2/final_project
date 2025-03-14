@@ -38,7 +38,7 @@ class AdminController extends Controller
         ]);
 
         // Find the user by ID, not by auth()
-        $user = \App\Models\User::findOrFail($id);
+        $user = User::findOrFail($id);
 
         // Update the user's profile
         $user->name = $request->name;

@@ -20,8 +20,25 @@ $(document).ready(function() {
   // Initialize the calendar
   $('#calendar').fullCalendar({
     droppable: true, // Enable dropping events
+    editable: true, // Allow event modifications
+    eventSources: [
+      {
+        url: '/appointments', // Fetch events from Laravel
+        method: 'GET',
+        success: function(response) {
+          // Ensure the correct format is used
+          if (response.appointments) {
+            $('#calendar').fullCalendar('addEventSource', response.appointments);
+          } else {
+            console.error("Invalid response format:", response);
+          }
+        },
+        error: function() {
+          alert('Error fetching appointments');
+        }
+      }
+    ],
     drop: function(info) {
-      // Handle the drop event here (e.g., save event data)
       alert("Event dropped: " + info.event.title);
     }
   });
