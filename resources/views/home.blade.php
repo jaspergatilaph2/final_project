@@ -88,6 +88,11 @@
                 <div data-i18n="Without navbar">View Doctors</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="{{ route('admin.doctors.list') }}" class="menu-link">
+                <div data-i18n="Without navbar">List Doctors</div>
+              </a>
+            </li>
           </ul>
         </li>
 

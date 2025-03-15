@@ -70,7 +70,7 @@
         </ul>
       </li>
 
-      <li class="menu-item {{$activeMenu === 'Doctors' ? 'active' : '' }}">
+      <li class="menu-item {{ $ActiveMenu === 'List' ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon fas fa-user-md"></i>
         <div data-i18n="Layouts">Doctor</div>
@@ -82,21 +82,16 @@
           <div data-i18n="Without menu">Add Doctors</div>
           </a>
         </li>
-        <li class="menu-item {{ $activeSub === 'View Doctor' ? 'active' : '' }}">
+        <li class="menu-item">
           <a href="" class="menu-link">
           <div data-i18n="Without navbar">View Doctors</div>
           </a>
         </li>
-        <!-- <li class="menu-item">
-        <a href="layouts-container.html" class="menu-link">
-        <div data-i18n="Container">Book Appointments</div>
-        </a>
-      </li> -->
-        <!-- <li class="menu-item">
-        <a href="layouts-fluid.html" class="menu-link">
-        <div data-i18n="Fluid">Edit Appointments</div>
-        </a>
-      </li> -->
+        <li class="menu-item {{ $ActiceMenuSub === 'Doctors' ? 'active' : '' }}">
+          <a href="#" class="menu-link">
+          <div data-i18n="Without navbar">List Doctors</div>
+          </a>
+        </li>
         </ul>
       </li>
 
@@ -161,8 +156,8 @@
         <div class="navbar-nav align-items-center">
         <div class="nav-item d-flex align-items-center">
           <!-- <i class="bx bx-search fs-4 lh-0"></i>
-        <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-        aria-label="Search..." /> -->
+      <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+      aria-label="Search..." /> -->
         </div>
         </div>
         <!-- /Search -->
@@ -246,6 +241,16 @@
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Doctors/</span>Show List Doctor</h4>
         <div class="card">
         <h5 class="card-header">Doctors</h5>
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <img id="slsuLogo" src="{{ asset('storage/images/slsu1.png') }}" style="display: none;">
+          <img id="bagongPilipinasLogo" src="{{ asset('storage/images/BagongPilipinasLogo.png') }}"
+          style="display: none;">
+          <img id="picture1FooterLogo" src="{{ asset('storage/images/Picture1.png') }}" style="display: none;">
+          <img id="picture2FooterLogo" src="{{ asset('storage/images/Picture2.png') }}" style="display: none;">
+          <button class="btn btn-sm btn-primary fs-6" id="printBtn">
+          <i class="fa-solid fa-print"></i> Print
+          </button>
+        </div>
         <div class="card-body">
           <div class="table-responsive text-nowrap">
           @if(session('success'))
@@ -253,7 +258,7 @@
         {{ session('success') }}
         </div>
       @endif
-          <table class="table table-striped">
+          <table class="table table-striped" id="doctorsList">
             <thead>
             <tr>
               <th>Doctor's Name</th>
@@ -263,7 +268,6 @@
               <th>Image</th>
               <th>Available</th>
               <th>Specialization</th>
-              <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -280,7 +284,7 @@
               @php
         $availability = is_string($doctor->is_available) ? json_decode($doctor->is_available, true) : $doctor->is_available;
         $availableDays = is_array($availability) ? $availability : [];
-      @endphp
+        @endphp
               @if(in_array(\Carbon\Carbon::now()->format('l'), $availableDays))
           <p>Available</p>
         @else
@@ -292,50 +296,11 @@
       @endif
               </td>
               <td>{{ $doctor->specialization }}</td>
-              <td>
-              <button class="btn btn-info" data-bs-toggle="modal"
-              data-bs-target="#viewModal{{ $doctor->id }}">
-              <i class="fa fa-eye"></i>
-              </button>
-              <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-success">
-              <i class="fa fa-user-edit"></i>
-              </a>
-              <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST"
-              style="display:inline;">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="btn btn-danger">
-              <i class="fa fa-trash"></i>
-              </button>
-              </form>
-              </td>
+
             </tr>
 
             <!-- Modal for each doctor -->
-            <div class="modal fade" id="viewModal{{ $doctor->id }}" tabindex="-1"
-              aria-labelledby="viewModalLabel{{ $doctor->id }}" aria-hidden="true">
-              <div class="modal-dialog">
-              <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="viewModalLabel{{ $doctor->id }}">Doctor Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-              <p><strong>Name:</strong> {{ $doctor->name }}</p>
-              <p><strong>Hospital:</strong> {{ $doctor->company }}</p>
-              <p><strong>Email:</strong> {{ $doctor->email }}</p>
-              <p><strong>Phone:</strong> {{ $doctor->phone }}</p>
-              <p><strong>Specialization:</strong> {{ $doctor->specialization }}</p>
-              <p><strong>Availability:</strong>
-                {{ !empty($availableDays) ? implode(', ', $availableDays) : 'Not Available' }}</p>
-              <img src="{{ asset('storage/' . $doctor->image) }}" alt="Doctor Image" class="img-fluid">
-              </div>
-              <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-              </div>
-              </div>
-            </div>
+
       @endforeach
             </tbody>
           </table>

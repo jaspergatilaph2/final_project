@@ -119,4 +119,12 @@ class DoctorsController extends Controller
         $doctor = Doctor::findOrFail($id);
         return view('user.doctor.show', compact('doctor'));
     }
+
+    public function list(){
+        $doctors = Doctor::all();
+        return view('admin.doctors.list',[
+            'ActiveMenu' => 'List',
+            'ActiceMenuSub' => 'Doctors'
+        ], compact('doctors'));
+    }
 }

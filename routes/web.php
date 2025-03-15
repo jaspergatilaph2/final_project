@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::delete('/destroy/{doctor}', [DoctorsController::class, 'destroy'])->name('destroy');
         Route::put('/update/{doctor}', [DoctorsController::class, 'update'])->name('update');
         Route::get('/edit/{doctor}', [DoctorsController::class, 'edit'])->name('edit');
+        Route::get('/list', [DoctorsController::class, 'list'])->name('list');
     });
 
     // Admin Account Routes

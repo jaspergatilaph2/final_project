@@ -100,6 +100,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{ asset('js/arrow_toggle.js') }}"></script>
     <script src="{{ asset('sneat/js/print.js')}}"></script>
+    <script src="{{ asset('sneat/js/doctorPrintList.js') }}"></script>
 </body>
 
 </html>
