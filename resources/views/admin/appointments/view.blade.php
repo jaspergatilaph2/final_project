@@ -87,6 +87,11 @@
           <div data-i18n="Without navbar">View Doctors</div>
           </a>
         </li>
+        <li class="menu-item">
+          <a href="{{ route('admin.doctors.list') }}" class="menu-link">
+          <div data-i18n="Without navbar">List Doctors</div>
+          </a>
+        </li> F
         </ul>
       </li>
 
@@ -150,27 +155,14 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
         <div class="nav-item d-flex align-items-center">
-          <!-- <i class="bx bx-search fs-4 lh-0"></i>
-      <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-      aria-label="Search..." /> -->
+        
         </div>
         </div>
         <!-- /Search -->
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
         <!-- Place this tag where you want the button to render. -->
-        <!-- <li class="nav-item lh-1 me-3">
-      <a
-      class="github-button"
-      href="https://github.com/themeselection/sneat-html-admin-template-free"
-      data-icon="octicon-star"
-      data-size="large"
-      data-show-count="true"
-      aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-      >Star</a
-      >
-      </li> -->
-
+       
         <!-- User -->
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -258,7 +250,8 @@
         </div>
         <div class="card-header d-flex justify-content-between align-items-center">
           <img id="slsuLogo" src="{{ asset('storage/images/slsu1.png') }}" style="display: none;">
-          <img id="bagongPilipinasLogo" src="{{ asset('storage/images/BagongPilipinasLogo.png') }}" style="display: none;">
+          <img id="bagongPilipinasLogo" src="{{ asset('storage/images/BagongPilipinasLogo.png') }}"
+          style="display: none;">
           <img id="picture1FooterLogo" src="{{ asset('storage/images/Picture1.png') }}" style="display: none;">
           <img id="picture2FooterLogo" src="{{ asset('storage/images/Picture2.png') }}" style="display: none;">
           <button class="btn btn-sm btn-primary fs-6" id="printBtn">

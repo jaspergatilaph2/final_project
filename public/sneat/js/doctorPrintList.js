@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("printBtn").addEventListener("click", function () {
-        let originalTable = document.getElementById("doctorsList").cloneNode(true);
+        let originalTable = document
+            .getElementById("doctorsList")
+            .cloneNode(true);
 
         // Get the image URL from the hidden image elements
         let slsuLogoSrc = document.getElementById("slsuLogo").src;
-        let bagongPilipinasLogoSrc = document.getElementById("bagongPilipinasLogo").src;
+        let bagongPilipinasLogoSrc = document.getElementById(
+            "bagongPilipinasLogo"
+        ).src;
         let footerLogoSrc1 = document.getElementById("picture1FooterLogo").src;
-        let picture2FooterLogo = document.getElementById("picture2FooterLogo").src;
+        let picture2FooterLogo =
+            document.getElementById("picture2FooterLogo").src;
 
         let printContents = originalTable.outerHTML;
 
@@ -14,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         newWindow.document.write(`
         <html>
         <head>
-            <title></title>
+            <title>Doctor List</title>
             <style>
                 body { 
                     font-family: Arial, sans-serif; 
@@ -37,6 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     flex-grow: 1;
                     text-align: center;
                     width: 100%;
+                }
+                .header .text p {
+                    margin: 5px 0;
+                    font-size: 14px;
+                }
+                .header .text p span {
+                    font-weight: bold !important;
                 }
                 h2 {
                     margin-top: 10px;
@@ -90,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <img src="${slsuLogoSrc}" alt="SLSU Logo">
                 <div class="text">
                     <h2>Southern Leyte State University</h2>
-                    <p>Email: odi@southernleytestateu.edu.ph</p>
-                    <p>Website: www.southernleytestateu.edu.ph</p>
+                    <p><span>Email:</span> odi@southernleytestateu.edu.ph</p>
+                    <p><span>Website:</span> www.southernleytestateu.edu.ph</p>
                     <p>Excellence | Service | Leadership and Good Governance | Innovation | Social Responsibility | Integrity | Professionalism | Spirituality</p>
                 </div>
                 <img src="${bagongPilipinasLogoSrc}" alt="Bagong Pilipinas">

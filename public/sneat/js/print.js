@@ -21,20 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let printContents = originalTable.outerHTML;
 
-        // Get the image URL from the hidden image element
+        // Get the image URL from the hidden image elements
         let slsuLogoSrc = document.getElementById("slsuLogo").src;
-        let bagongPilipinasLogoSrc = document.getElementById(
-            "bagongPilipinasLogo"
-        ).src;
+        let bagongPilipinasLogoSrc = document.getElementById("bagongPilipinasLogo").src;
         let footerLogoSrc1 = document.getElementById("picture1FooterLogo").src;
-        let picture2FooterLogo =
-            document.getElementById("picture2FooterLogo").src;
+        let picture2FooterLogo = document.getElementById("picture2FooterLogo").src;
 
         let newWindow = window.open("_blank");
         newWindow.document.write(`
         <html>
         <head>
-            <title></title>
+            <title>Appointments Report</title>
             <style>
                 body { 
                     font-family: Arial, sans-serif; 
@@ -57,6 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     flex-grow: 1;
                     text-align: center;
                     width: 100%;
+                }
+                .header .text p span {
+                    font-weight: bold; /* Ensure span inside p is bold */
                 }
                 h2 {
                     margin-top: 10px;
@@ -87,27 +87,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     max-height: 75px; 
                     border-radius: 5px;
                 }
-
-                 .footer {
-    position: absolute;
-    bottom: 20px; /* Adjust to position it properly */
-    right: 20px; /* Aligns to the left */
-    display: flex;
-    align-items: center;
-}
-
-.footer-container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between images */
-}
-
-.footer img {
-    max-width: 120px;
-    height: auto;
-}
-
-
+                .footer {
+                    position: absolute;
+                    bottom: 20px;
+                    right: 20px;
+                    display: flex;
+                    align-items: center;
+                }
+                .footer-container {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .footer img {
+                    max-width: 120px;
+                    height: auto;
+                }
             </style>
         </head>
         <body>
@@ -115,26 +110,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 <img src="${slsuLogoSrc}" alt="SLSU Logo">
                 <div class="text">
                     <h2>Southern Leyte State University</h2>
-                    <p>Email: odi@southernleytestateu.edu.ph</p>
-                    <p>Website: www.southernleytestateu.edu.ph</p>
+                    <p><span>Email:</span> odi@southernleytestateu.edu.ph</p>
+                    <p><span>Website:</span> www.southernleytestateu.edu.ph</p>
                     <p>Excellence | Service | Leadership and Good Governance | Innovation | Social Responsibility | Integrity | Professionalism | Spirituality</p>
                 </div>
                 <img src="${bagongPilipinasLogoSrc}" alt="Bagong Pilipinas">
             </div>
             <h2>Appointments Reports</h2>
             ${printContents}
-             <div class="footer">
-    <div class="footer-container">
-        <img src="${footerLogoSrc1}" alt="QS Stars Rating System Logo">
-        <img src="${picture2FooterLogo}" alt="ISO 9001:2015 Socotec Logo">
-    </div>
-</div>
+            <div class="footer">
+                <div class="footer-container">
+                    <img src="${footerLogoSrc1}" alt="QS Stars Rating System Logo">
+                    <img src="${picture2FooterLogo}" alt="ISO 9001:2015 Socotec Logo">
+                </div>
+            </div>
             <script>
                 window.onload = function() {
                     window.print();
                     window.onafterprint = function() { window.close(); };
                 };
-            <\/script>
+            </script>
         </body>
         </html>
     `);

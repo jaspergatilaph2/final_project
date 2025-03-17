@@ -87,16 +87,11 @@
           <div data-i18n="Without navbar">View Doctors</div>
           </a>
         </li>
-        <!-- <li class="menu-item">
-        <a href="layouts-container.html" class="menu-link">
-        <div data-i18n="Container">Book Appointments</div>
-        </a>
-      </li> -->
-        <!-- <li class="menu-item">
-        <a href="layouts-fluid.html" class="menu-link">
-        <div data-i18n="Fluid">Edit Appointments</div>
-        </a>
-      </li> -->
+        <li class="menu-item">
+          <a href="{{ route('admin.doctors.list') }}" class="menu-link">
+          <div data-i18n="Without navbar">List Doctors</div>
+          </a>
+        </li>
         </ul>
       </li>
 
@@ -160,9 +155,7 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
         <div class="nav-item d-flex align-items-center">
-          <!-- <i class="bx bx-search fs-4 lh-0"></i>
-        <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-        aria-label="Search..." /> -->
+          <!-- Search Puporse -->
         </div>
         </div>
         <!-- /Search -->
@@ -280,7 +273,7 @@
               @php
         $availability = is_string($doctor->is_available) ? json_decode($doctor->is_available, true) : $doctor->is_available;
         $availableDays = is_array($availability) ? $availability : [];
-      @endphp
+        @endphp
               @if(in_array(\Carbon\Carbon::now()->format('l'), $availableDays))
           <p>Available</p>
         @else
