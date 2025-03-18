@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         newWindow.document.write(`
         <html>
         <head>
-            <title>Appointments Report</title>
+            <title></title>
             <style>
                 body { 
                     font-family: Arial, sans-serif; 

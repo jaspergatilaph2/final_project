@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
-    protected $fillable = ['name', 'company', 'email', 'phone', 'image', 'is_available'];
+    protected $fillable = ['name', 'company', 'email', 'phone', 'image', 'is_available','specialization'];
     protected $casts = [
         'is_available' => 'array',
     ];

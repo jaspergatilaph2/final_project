@@ -94,13 +94,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="{{asset('sneat/js/year.js')}}"></script>
     <script src="{{asset('sneat/js/appointments-count.js')}}"></script>
+    <script src="{{ asset('js/arrow_toggle.js') }}"></script>
+    <script src="{{ asset('sneat/js/print.js')}}"></script>
+    <script src="{{ asset('sneat/js/doctorPrintList.js') }}"></script>
 
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="{{ asset('js/arrow_toggle.js') }}"></script>
-    <script src="{{ asset('sneat/js/print.js')}}"></script>
-    <script src="{{ asset('sneat/js/doctorPrintList.js') }}"></script>
+    
 </body>
 
 </html>
