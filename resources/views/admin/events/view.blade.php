@@ -250,6 +250,7 @@
                                                 <th>Date</th>
                                                 <th>Time</th>
                                                 <th>End Time</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -264,17 +265,28 @@
                                                     </td>
                                                     <td>{{ \Carbon\Carbon::parse($event->endtime)->setTimezone(config('app.timezone'))->format('h:i A') }}
                                                     </td>
+                                                    <td>
+                                                        <form action="{{ route('admin.events.destroy', $event->id) }}"
+                                                            method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
 
                                             @if($events->isEmpty())
                                                 <tr>
-                                                    <td colspan="4" class="text-center text-muted">No logs found.</td>
+                                                    <td colspan="6" class="text-center text-muted">No events found.</td>
                                                 </tr>
                                             @endif
                                         </tbody>
                                     </table>
                                 </div>
+
 
                                 <!-- Pagination Links -->
                                 <div class="d-flex justify-content-center mt-3">
@@ -351,4 +363,36 @@
         <!-- / Layout container -->
     </div>
     </div>
+
+    {{-- Modal for Success Message --}}
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"> <!-- Added modal-dialog-centered to center the modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if(session('success'))
+                        {{ session('success') }}
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+@if(session('success'))
+    <script>
+        // Ensure that the script runs after the page has finished loading
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show the modal after a successful deletion
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'), {
+                keyboard: false
+            });
+            successModal.show();
+        });
+    </script>
+@endif

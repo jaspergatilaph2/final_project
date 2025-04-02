@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/create', [AppointmentController::class, 'create'])->name('create');
         Route::get('/view', [AppointmentController::class, 'viewAppointments'])->name('view');
         Route::post('/{id}/update-status/{status}', [AppointmentController::class, 'updateStatus'])->name('updateStatus');
-        
+
         //DELETE route
         Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('destroy');
     });
@@ -92,6 +92,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/create', [EventController::class, 'createEvent'])->name('create');
         Route::post('/store', [EventController::class, 'store'])->name('store'); // Ensure only POST is allowed
         Route::get('/view', [EventController::class, 'viewEvents'])->name('view');
+        Route::post('/{id}', [EventController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}', [EventController::class, 'destroy'])->name('destroy');
     });
 });
 

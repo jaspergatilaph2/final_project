@@ -59,6 +59,7 @@
 
     <link rel="stylesheet" href="{{asset('css/drag.css')}}">
     <script src="{{ asset('js/notification.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('sneat/css/modal.css') }}">
 </head>
 
 <body>

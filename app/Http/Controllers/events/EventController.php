@@ -51,7 +51,10 @@ class EventController extends Controller
             DB::table('notifications')->insert([
                 'id' => Str::uuid(), // Generate unique ID
                 'type' => 'App\\Notifications\\EventCreatedNotification',
-                'data' => json_encode(['message' => 'A new event "' . $event->eventsName . '" has been created.']),
+                'data' => json_encode([
+                    'message' => 'A new event "' . $event->eventsName . '" has been created.',
+                    'received_message' => 'You have received a new event notification for "' . $event->eventsName . '".'
+                ]),
                 'notifiable_type' => 'App\\Models\\User',
                 'notifiable_id' => $user->id, // User ID
                 'event_id' => $event->id, // Associated Event ID
@@ -101,4 +104,14 @@ class EventController extends Controller
             'events' => $events
         ]);
     }
+
+    public function destroy($id)
+    {
+        $events = events::findOrFail($id);
+        $events->delete();
+
+        logs::create(['description' => 'Event "' . $events->eventsName . '" successfully deleted!']);
+        return back()->with('success', 'Event deleted successfully.');
+    }
+
 }
