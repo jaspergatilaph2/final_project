@@ -14,7 +14,7 @@ class DoctorsController extends Controller
 {
     public function index()
     {
-        return view('admin.doctors.index');
+        return view('doctors.index');
     }
 
     public function create()

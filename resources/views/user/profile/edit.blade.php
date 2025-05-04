@@ -96,6 +96,9 @@
             </li>
           </ul>
         </li>
+        <li class="menu-header small text-uppercase">
+          <span class="menu-header-text">Mics</span>
+        </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -141,7 +144,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                  <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                     class="w-px-120 h-px-120 rounded-circle" />
                 </div>
 
@@ -152,7 +155,7 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                          <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                             class="w-px-120 h-px-120 rounded-circle" />
                         </div>
 
@@ -175,7 +178,7 @@
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{{route('settings')}}">
+                  <a class="dropdown-item" href="{{route('user.settings')}}">
                     <i class="bx bx-cog me-2"></i>
                     <span class="align-middle">Settings</span>
                   </a>
@@ -194,7 +197,7 @@
                   <a class="dropdown-item" href="javascript:void(0);"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bx bx-power-off me-2"></i>
-                    <span class="align-middle">Log Out</span>
+                    <span class="align-middle" style="color:#ff6347;">Log Out</span>
                   </a>
                   <form action="{{route('logout')}}" method="post" id="logout-form">
                     @csrf

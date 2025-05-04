@@ -47,13 +47,13 @@ Route::get('/appointments/count', [AppointmentController::class, 'getAppointment
 
 
 // Admin Routes
-Route::group(['middleware' => ['auth', 'admin']], function () {
+Route::group(['middleware' => 'admin', 'prefix' =>'admin'], function () {
     // Admin Dashboard Route
-    Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
 
     // Admin Appointments Routes
-    Route::prefix('admin/appointments')->name('admin.appointments.')->group(function () {
+    Route::prefix('appointments')->name('admin.appointments.')->group(function () {
         Route::get('/create', [AppointmentController::class, 'create'])->name('create');
         Route::get('/view', [AppointmentController::class, 'viewAppointments'])->name('view');
         Route::post('/{id}/update-status/{status}', [AppointmentController::class, 'updateStatus'])->name('updateStatus');
@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
 
     // Admin Doctors Routes
-    Route::prefix('admin/doctors')->name('admin.doctors.')->group(function () {
+    Route::prefix('/doctors')->name('admin.doctors.')->group(function () {
         Route::get('/', [DoctorsController::class, 'index'])->name('index');
         Route::get('/create', [DoctorsController::class, 'create'])->name('create');
         Route::get('/view', [DoctorsController::class, 'view'])->name('view');
@@ -76,19 +76,19 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     });
 
     // Admin Account Routes
-    Route::prefix('admin/accounts')->name('admin.accounts.')->group(function () {
+    Route::prefix('/accounts')->name('admin.accounts.')->group(function () {
         Route::get('/profile', [AdminController::class, 'showProfile'])->name('profile');
         Route::get('/profile/edit', [AdminController::class, 'editProfile'])->name('profile.edit');
         Route::put('/profile/edit', [AdminController::class, 'updateProfile'])->name('profile.update'); // Add PUT route for updating profile
     });
 
     // Log Route
-    Route::prefix('admin/misc')->name('admin.misc.')->group(function () {
+    Route::prefix('/misc')->name('admin.misc.')->group(function () {
         Route::get('/showlogs', [AdminController::class, 'showLogs'])->name('logs'); // Corrected route name
     });
 
     //Creating Events
-    Route::prefix('admin/events')->name('admin.events.')->group(function () {
+    Route::prefix('/events')->name('admin.events.')->group(function () {
         Route::get('/create', [EventController::class, 'createEvent'])->name('create');
         Route::post('/store', [EventController::class, 'store'])->name('store'); // Ensure only POST is allowed
         Route::get('/view', [EventController::class, 'viewEvents'])->name('view');

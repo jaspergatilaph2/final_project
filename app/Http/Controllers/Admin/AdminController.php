@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+
+        return view('admin.dashboard.home', compact('user'));
+    }
 
     public function showProfile()
     {

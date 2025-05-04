@@ -98,6 +98,9 @@ use App\Models\logs;
             </li>
           </ul>
         </li>
+        <li class="menu-header small text-uppercase">
+          <span class="menu-header-text">Mics</span>
+        </li>
         <li class="menu-item {{ $userLogs === 'Logs' ? 'active' : '' }}">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -136,7 +139,7 @@ use App\Models\logs;
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                  <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                     class="w-px-120 h-px-120 rounded-circle" />
                 </div>
               </a>
@@ -146,7 +149,7 @@ use App\Models\logs;
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                          <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                             class="w-px-120 h-px-120 rounded-circle" />
                         </div>
                       </div>
@@ -162,13 +165,13 @@ use App\Models\logs;
                   <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="">
+                  <a class="dropdown-item" href="{{ route('user.account.profile') }}">
                     <i class="bx bx-user me-2"></i>
                     <span class="align-middle">My Profile</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="">
+                  <a class="dropdown-item" href="{{ route('user.settings') }}">
                     <i class="bx bx-cog me-2"></i>
                     <span class="align-middle">Settings</span>
                   </a>
@@ -187,7 +190,7 @@ use App\Models\logs;
                   <a class="dropdown-item" href="javascript:void(0);"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bx bx-power-off me-2"></i>
-                    <span class="align-middle">Log Out</span>
+                    <span class="align-middle" style="color:#ff6347;">Log Out</span>
                   </a>
                   <form action="{{route('logout')}}" method="post" id="logout-form">
                     @csrf
@@ -207,10 +210,17 @@ use App\Models\logs;
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
           <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Logs /</span>History</h4>
-
+          <ul class="nav nav-pills flex-column flex-md-row mb-4">
+            <li class="nav-item">
+              <a class="nav-link active" href="javascript:void(0);">
+              <i class="fa-solid fa-clock-rotate-left"></i> Logs
+              </a>
+            </li>
+          </ul>
           <div class="card mb-4">
             <div class="card-header">
               <h5 class="mb-0">Logs History</h5>
+
             </div>
             <div class="card-body">
               <div class="table-responsive text-nowrap">

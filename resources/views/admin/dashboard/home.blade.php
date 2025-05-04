@@ -8,16 +8,16 @@
 
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
       <div class="app-brand demo">
-        <a href="/home" class="app-brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
           <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
           <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
         </a>
 
-        <a href="javascript:void(0);" id="menu-toggle" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-          <i class="bx bx-chevron-left bx-sm align-middle"></i>
-        </a>
+        <!-- <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+          <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
+        </a> -->
       </div>
 
       <div class="menu-inner-shadow"></div>
@@ -25,7 +25,7 @@
       <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item active">
-          <a href="/home" class="menu-link">
+          <a href="{{ route('admin.dashboard') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
           </a>
@@ -217,7 +217,7 @@
                   <a class="dropdown-item" href="javascript:void(0);"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bx bx-power-off me-2"></i>
-                    <span class="align-middle">Log Out</span>
+                    <span class="align-middle" style="color:#ff6347;">Log Out</span>
                   </a>
                   <form action="{{route('logout')}}" method="post" id="logout-form">
                     @csrf
@@ -241,7 +241,7 @@
               <div class="col-md-4 pt-3">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Appointments Number</h5>
+                    <h5 class="card-title">APPOINTMENT TOTAL NUMBERS</h5>
                     <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> appointments</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
                       <strong style="font-size:8.5rem; text-align:center;">{{\App\Models\Appointment::count()}}</strong>
@@ -250,6 +250,44 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-md-4 pt-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">APPOINTMENT NUMBER OF PENDING</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> pending</p>
+                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
+                      <strong style="font-size:8.5rem; text-align:center;">{{\App\Models\Appointment::where('status', 'pending')->count()}}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 pt-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">APPOINTMENT NUMBER OF CONFIRM</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> confirmed</p>
+                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
+                      <strong style="font-size:8.5rem; text-align:center;">{{\App\Models\Appointment::where('status', 'confirmed')->count()}}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-4 pt-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">APPOINTMENT NUMBER OF CANCELLED</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> cancelled</p>
+                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
+                      <strong style="font-size:8.5rem; text-align:center;">{{\App\Models\Appointment::where('status', 'cancelled')->count()}}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="col-md-4 pt-3">
 
                 <div class="card">
@@ -257,7 +295,7 @@
                     <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                       <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                         <div class="card-title">
-                          <h5 class="text-nowrap mb-2">Appointments Report</h5>
+                          <h5 class="text-nowrap mb-2">APPOINTMENTS REPORT</h5>
                           <span class="badge bg-label-warning rounded-pill">Year</span>
                         </div>
                         <div class="mt-sm-auto">
@@ -273,8 +311,8 @@
               <div class="col-md-4 pt-3">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">DOCTORS ADDED NUMBERS</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> Doctors Added.</p>
+                    <h5 class="card-title">DOCTORS TOTAL ADDED NUMBERS</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> doctors added.</p>
                     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     <div style="display: flex; justify-content: center; align-items: center;">
                       <strong style="font-size:8.5rem; text-align:center;">{{ \App\Models\Doctor::count() }}</strong>

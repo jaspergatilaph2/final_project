@@ -11,7 +11,7 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="/home" class="app-brand-link">
+                    <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
                         <span class="app-brand-logo demo"></span>
                         <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
                         <span class="app-brand-text demo menu-text fw-bolder ms-2"
@@ -28,7 +28,7 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
                     <li class="menu-item">
-                        <a href="/home" class="menu-link">
+                        <a href="{{ route('admin.dashboard') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
@@ -214,7 +214,7 @@
                                         <a class="dropdown-item" href="javascript:void(0);"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
+                                            <span class="align-middle" style="color:#ff6347;">Log Out</span>
                                         </a>
                                         <form action="{{route('logout')}}" method="post" id="logout-form">
                                             @csrf

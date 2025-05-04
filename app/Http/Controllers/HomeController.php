@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         if (auth()->user()->role === 'admin') {
-            return view('home'); 
+            return view('admin.dashboard.home'); 
         }
 
         return redirect()->route('user.dashboard')->with('error', 'Unauthorized access.');

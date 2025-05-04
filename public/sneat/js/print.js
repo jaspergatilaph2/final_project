@@ -23,9 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Get the image URL from the hidden image elements
         let slsuLogoSrc = document.getElementById("slsuLogo").src;
-        let bagongPilipinasLogoSrc = document.getElementById("bagongPilipinasLogo").src;
+        let bagongPilipinasLogoSrc = document.getElementById(
+            "bagongPilipinasLogo"
+        ).src;
         let footerLogoSrc1 = document.getElementById("picture1FooterLogo").src;
-        let picture2FooterLogo = document.getElementById("picture2FooterLogo").src;
+        let picture2FooterLogo =
+            document.getElementById("picture2FooterLogo").src;
 
         let newWindow = window.open("_blank");
         newWindow.document.write(`
@@ -33,76 +36,76 @@ document.addEventListener("DOMContentLoaded", function () {
         <head>
             <title></title>
             <style>
-                body { 
-                    font-family: Arial, sans-serif; 
-                    padding: 20px;
-                    text-align: center;
-                }
-                .header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 20px;
-                    border-bottom: 2px solid black;
-                    padding-bottom: 10px;
-                    width: 100%;
-                }
-                .header img {
-                    max-width: 100px;
-                }
-                .header .text {
-                    flex-grow: 1;
-                    text-align: center;
-                    width: 100%;
-                }
-                .header .text p span {
-                    font-weight: bold; /* Ensure span inside p is bold */
-                }
-                h2 {
-                    margin-top: 10px;
-                    margin-bottom: 20px;
-                    font-size: 22px;
-                }
-                table { 
-                    width: 100%; 
-                    border-collapse: collapse; 
-                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-                    background-color: #fff;
-                }
-                th, td { 
-                    border: 1px solid #ddd; 
-                    padding: 12px; 
-                    text-align: center;
-                }
-                th { 
-                    background-color: #007bff; 
-                    color: white; 
-                    font-weight: bold;
-                }
-                tr:nth-child(even) { 
-                    background-color: #f2f2f2;
-                }
-                img { 
-                    max-width: 75px; 
-                    max-height: 75px; 
-                    border-radius: 5px;
-                }
-                .footer {
-                    position: absolute;
-                    bottom: 20px;
-                    right: 20px;
-                    display: flex;
-                    align-items: center;
-                }
-                .footer-container {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
-                .footer img {
-                    max-width: 120px;
-                    height: auto;
-                }
+                @media print {
+        thead { display: table-header-group; }
+        tfoot { display: table-footer-group; }
+        .footer {
+            display: block;
+            margin-top: 30px;
+            text-align: right;
+            page-break-after: always;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+    }
+
+    body { 
+        font-family: Arial, sans-serif; 
+        padding: 20px;
+        text-align: center;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid black;
+        padding-bottom: 10px;
+        width: 100%;
+    }
+    .header img {
+        max-width: 100px;
+    }
+    .header .text {
+        flex-grow: 1;
+        text-align: center;
+        width: 100%;
+    }
+    h2 {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-size: 22px;
+    }
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        background-color: #fff;
+    }
+    th, td { 
+        border: 1px solid #ddd; 
+        padding: 12px; 
+        text-align: center;
+    }
+    th { 
+        background-color: #007bff; 
+        color: white; 
+        font-weight: bold;
+    }
+    tr:nth-child(even) { 
+        background-color: #f2f2f2;
+    }
+    img { 
+        max-width: 75px; 
+        max-height: 75px; 
+        border-radius: 5px;
+    }
+    .footer img {
+        max-width: 120px;
+        height: auto;
+    }
             </style>
         </head>
         <body>
@@ -118,12 +121,16 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <h2>Appointments Reports</h2>
             ${printContents}
-            <div class="footer">
-                <div class="footer-container">
-                    <img src="${footerLogoSrc1}" alt="QS Stars Rating System Logo">
-                    <img src="${picture2FooterLogo}" alt="ISO 9001:2015 Socotec Logo">
-                </div>
+<tfoot class="footer">
+    <tr>
+        <td colspan="100%">
+            <div class="footer-container">
+                <img src="${footerLogoSrc1}" alt="QS Stars Rating System Logo">
+                <img src="${picture2FooterLogo}" alt="ISO 9001:2015 Socotec Logo">
             </div>
+        </td>
+    </tr>
+</tfoot>
             <script>
                 window.onload = function() {
                     window.print();

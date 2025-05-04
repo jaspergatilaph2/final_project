@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         newWindow.document.write(`
         <html>
         <head>
-            <title>Doctor List</title>
+            <title></title>
             <style>
                 body { 
                     font-family: Arial, sans-serif; 

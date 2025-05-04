@@ -7,7 +7,7 @@
 
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
       <div class="app-brand demo">
-        <a href="/home" class="app-brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
           <span class="app-brand-logo demo">
           </span>
           <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;">
@@ -24,7 +24,7 @@
       <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item ">
-          <a href="/home" class="menu-link">
+          <a href="{{ route('admin.dashboard') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
           </a>
@@ -87,16 +87,7 @@
                 <div data-i18n="Without navbar">View Doctors</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="layouts-container.html" class="menu-link">
-                <div data-i18n="Container">Book Appointments</div>
-              </a>
-            </li> -->
-            <!-- <li class="menu-item">
-              <a href="layouts-fluid.html" class="menu-link">
-                <div data-i18n="Fluid">Edit Appointments</div>
-              </a>
-            </li> -->
+
           </ul>
         </li>
 
@@ -169,17 +160,7 @@
 
           <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
-            <!-- <li class="nav-item lh-1 me-3">
-                  <a
-                    class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                    >Star</a
-                  >
-                </li> -->
+
 
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -234,7 +215,7 @@
                   <a class="dropdown-item" href="javascript:void(0);"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bx bx-power-off me-2"></i>
-                    <span class="align-middle">Log Out</span>
+                    <span class="align-middle" style="color:#ff6347;">Log Out</span>
                   </a>
                   <form action="{{route('logout')}}" method="post" id="logout-form">
                     @csrf
@@ -253,20 +234,48 @@
       <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-          <div class="container-xxl py-5">
-            <h1 class="text-center text-primary mb-4">Settings Page</h1>
-            <p class="text-center mb-5">This is the settings page where you can manage your preferences.</p>
+          <!-- Navigation Tabs -->
+          <ul class="nav nav-pills flex-column flex-md-row mb-4">
+            <li class="nav-item">
+              <a class="nav-link active" href="javascript:void(0);">
+                <i class='bx bxs-cog me-1'></i> Settings
+              </a>
+            </li>
+          </ul>
 
-            <!-- Dark Mode Toggle Button -->
-            <div class="d-flex justify-content-center">
-              <button class="btn btn-dark dark-mode-toggle p-3 px-5 rounded-pill">
-                <i class="fas fa-moon me-2"></i> Toggle Dark Mode
-              </button>
+          <!-- Settings Card -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <!-- Dark Mode Toggle -->
+              <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+                <div class="mb-2 mb-sm-0">
+                  <h6 class="mb-1">Dark Mode</h6>
+                  <small class="text-muted">Enable or disable dark mode</small>
+                </div>
+                <div>
+                  <div class="form-check form-switch mb-0">
+                    <input type="checkbox" class="form-check-input dark-mode-toggle" id="darkModeSwitch" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <!-- Dark Mode Toggle -->
+              <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+                <div class="mb-2 mb-sm-0">
+                  <h6 class="mb-1">Enable Geolocation API</h6>
+                  <small class="text-muted">Enable or disable API</small>
+                </div>
+                <div>
+                  <div class="form-check form-switch mb-0">
+                    <input type="checkbox" class="form-check-input dark-mode-toggle" id="darkModeSwitch" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
         <!-- / Content -->
 
         <!-- Footer -->

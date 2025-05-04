@@ -55,21 +55,25 @@
     <link rel="stylesheet" href="{{asset('css/toggle.css')}}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="{{ asset('css/arrow_toggle.css') }}">
+    <link rel="stylesheet" href="{{ asset('sneat/css/darkmode.css') }}">
+    <!-- Add this in your layout's <head> section -->
+    <!-- Font Awesome CDN (v6) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
     <div id="app">
 
         @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
         @endif
         <main class="py-4">
             @yield('content')
         </main>
 
-        
+
     </div>
 
 
@@ -101,7 +105,6 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
 </body>
 
 </html>

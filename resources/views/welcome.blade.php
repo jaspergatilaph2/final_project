@@ -49,7 +49,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
             <div class="container">
                 <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;"> &emsp;
-                <a class="navbar-brand" href="#"> Southern Leyte State U- Bontoc Campus</a>
+                <a class="navbar-brand" href="#">SLSU-BONTOC</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -57,20 +57,20 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         @if (Route::has('login'))
-                        @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/home') }}">Home</a>
-                        </li>
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Log in</a>
-                        </li>
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
-                        </li>
-                        @endif
-                        @endauth
+                            @auth
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">Register</a>
+                                    </li>
+                                @endif
+                            @endauth
                         @endif
                     </ul>
                 </div>
@@ -80,17 +80,17 @@
         <!-- Hero Section -->
         <section class="hero-section text-center text-white">
             <div class="container">
-                <h1 class="display-4 mb-4 text-border">
+                <h1 class="fs-3 fs-md-2 fs-lg-1 mb-2 text-border">
                     <strong>Welcome to Your Advanced Health Management System</strong>
                 </h1>
-                <p class="lead mb-4 lead-text">
+                <p class="fs-3 fs-md-2 fs-lg-1 mb-2 text-dark lead-text">
                     Empowering you to take charge of your health with ease and confidence.
                 </p>
                 <div class="d-flex gap-3 justify-content-center">
                     <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Log In</a>
                     @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg"
-                        style="border: 2px solid black; color:black;">Register</a>
+                        <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg"
+                            style="border: 2px solid black; color:black;">Register</a>
                     @endif
                 </div>
             </div>

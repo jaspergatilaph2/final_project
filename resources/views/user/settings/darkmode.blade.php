@@ -97,6 +97,10 @@
             </li>
           </ul>
         </li>
+
+        <li class="menu-header small text-uppercase">
+          <span class="menu-header-text">Mics</span>
+        </li>
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-file"></i>
@@ -145,7 +149,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                  <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                     class="w-px-auto h-px-auto rounded-circle" />
                 </div>
               </a>
@@ -155,7 +159,7 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                          <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('sneat/img/avatars/1.png') }}" alt
                             class="w-px-auto h-px-auto rounded-circle" />
                         </div>
                       </div>
@@ -177,7 +181,7 @@
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="{{route('user.settings')}}">
+                  <a class="dropdown-item" href="#">
                     <i class="bx bx-cog me-2"></i>
                     <span class="align-middle">Settings</span>
                   </a>
@@ -195,7 +199,7 @@
                   <a class="dropdown-item" href="javascript:void(0);"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bx bx-power-off me-2"></i>
-                    <span class="align-middle">Log Out</span>
+                    <span class="align-middle" style="color:#ff6347;">Log Out</span>
                   </a>
                   <form action="{{route('logout')}}" method="post" id="logout-form">
                     @csrf
@@ -214,19 +218,34 @@
       <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-          <div class="container-xxl py-5">
-            <h1 class="text-center text-primary mb-4">Settings Page</h1>
-            <p class="text-center mb-5">This is the settings page where you can manage your preferences.</p>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Settings /</span> Show</h4>
+          <!-- Navigation Tabs -->
+          <ul class="nav nav-pills flex-column flex-md-row mb-4">
+            <li class="nav-item">
+              <a class="nav-link active" href="javascript:void(0);">
+                <i class='bx bxs-cog me-1'></i> Settings
+              </a>
+            </li>
+          </ul>
 
-            <!-- Dark Mode Toggle Button -->
-            <div class="d-flex justify-content-center">
-              <button class="btn btn-dark dark-mode-toggle p-3 px-5 rounded-pill">
-                <i class="fas fa-moon me-2"></i> Toggle Dark Mode
-              </button>
+          <!-- Settings Card -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <!-- Dark Mode Toggle -->
+              <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+                <div class="mb-2 mb-sm-0">
+                  <h6 class="mb-1">Dark Mode</h6>
+                  <small class="text-muted">Enable or disable dark mode</small>
+                </div>
+                <div>
+                  <div class="form-check form-switch mb-0">
+                    <input type="checkbox" class="form-check-input dark-mode-toggle" id="darkModeSwitch" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
 
         <!-- / Content -->
 

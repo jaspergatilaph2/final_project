@@ -24,6 +24,7 @@
                     <label for="name" class="form-label">Doctor's Name</label>
                     <input type="text" name="name" class="form-control" value="{{ old('name', $doctor->name) }}"
                         required>
+                        
                 </div>
 
                 <div class="mb-3">

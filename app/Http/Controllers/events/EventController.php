@@ -52,7 +52,6 @@ class EventController extends Controller
                 'id' => Str::uuid(), // Generate unique ID
                 'type' => 'App\\Notifications\\EventCreatedNotification',
                 'data' => json_encode([
-                    'message' => 'A new event "' . $event->eventsName . '" has been created.',
                     'received_message' => 'You have received a new event notification for "' . $event->eventsName . '".'
                 ]),
                 'notifiable_type' => 'App\\Models\\User',
