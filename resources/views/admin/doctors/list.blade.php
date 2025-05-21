@@ -83,7 +83,7 @@
           </a>
         </li>
         <li class="menu-item">
-          <a href="" class="menu-link">
+          <a href="{{ route('admin.doctors.view') }}" class="menu-link">
           <div data-i18n="Without navbar">View Doctors</div>
           </a>
         </li>

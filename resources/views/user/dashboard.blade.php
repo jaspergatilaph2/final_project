@@ -319,7 +319,7 @@ $notifications = auth()->user()->unreadNotifications;
                     <h5 class="card-title">
                       ANNOUNCEMENT OF APPOINTMENT STATUS
                     </h5>
-                    <p class="card-text">Show The Status If Already Confrimed or Pending , Cancelled.</p>
+                    <p class="card-text">Show the status if already confrimed or pending , cancelled.</p>
 
                     @foreach(\App\Models\Appointment::with('doctor')->where([
                     ['status', '=', 'confirmed'],

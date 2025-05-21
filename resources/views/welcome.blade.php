@@ -49,7 +49,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
             <div class="container">
                 <img src="{{asset('storage/images/Adobe Express - file.png')}}" alt="" style="width: 50px;"> &emsp;
-                <a class="navbar-brand" href="#">SLSU-BONTOC</a>
+                <a class="navbar-brand" href="#">SLSU-Bontoc</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
