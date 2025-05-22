@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('storage/images/Adobe Express - file.png') }}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         .hero-section {
             background: url("/background/seo-2126-bs-health-concept-medical-healt-340085269-1200x675.jpg") center center no-repeat;
@@ -57,20 +59,20 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         @if (Route::has('login'))
-                            @auth
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/home') }}">Home</a>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Log in</a>
-                                </li>
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                    </li>
-                                @endif
-                            @endauth
+                        @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                        </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        </li>
+                        @endif
+                        @endauth
                         @endif
                     </ul>
                 </div>
@@ -89,8 +91,8 @@
                 <div class="d-flex gap-3 justify-content-center">
                     <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Log In</a>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg"
-                            style="border: 2px solid black; color:black;">Register</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg"
+                        style="border: 2px solid black; color:black;">Register</a>
                     @endif
                 </div>
             </div>
@@ -100,26 +102,33 @@
         <section class="container py-5">
             <h2 class="text-center section-title">Key Features</h2>
             <div class="row text-center">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="feature-icon mb-3">
                         <i class="bi bi-heart"></i>
                     </div>
                     <h4>Health Monitoring</h4>
                     <p>Track your health metrics like blood pressure, heart rate, and more in real time.</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="feature-icon mb-3">
                         <i class="bi bi-calendar-check"></i>
                     </div>
                     <h4>Appointments</h4>
                     <p>Book and manage your appointments with health professionals at your convenience.</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="feature-icon mb-3">
                         <i class="bi bi-shield-lock"></i>
                     </div>
                     <h4>Secure Data</h4>
                     <p>Your personal health data is kept safe with advanced encryption methods.</p>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-chat-dots"></i>
+                    </div>
+                    <h4>24/7 Support</h4>
+                    <p>Get in touch with our health support team anytime, anywhere.</p>
                 </div>
             </div>
         </section>
