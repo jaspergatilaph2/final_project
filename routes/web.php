@@ -12,17 +12,13 @@ use App\Http\Controllers\Doctors\DoctorsController;
 use App\Http\Controllers\events\EventController;
 use App\Http\Controllers\Setting\SettingsController;
 use App\Http\Controllers\User\UsersController;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', function () {
@@ -30,40 +26,53 @@ Route::get('/', function () {
     return view('welcome', ['title' => $title]);
 });
 
-Auth::routes();
+// Enable email verification
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Protected home route
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('home');
+
+// Email verification notice
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+// Email verification handler
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Resend verification email
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('/maintenance', function () {
     return view('maintenance.maintenance');
 })->name('maintenance');
 
-// Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
-
-Route::get('/appointments/data', [App\Http\Controllers\appointment\AppointmentControllers::class, 'getAppointmentData']);
-
+// Appointments
+Route::get('/appointments/data', [AppointmentController::class, 'getAppointmentData']);
 Route::get('/appointments/count', [AppointmentController::class, 'getAppointmentCount']);
 
-
-
 // Admin Routes
-Route::group(['middleware' => 'admin', 'prefix' =>'admin'], function () {
-    // Admin Dashboard Route
-    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/settings', [SettingsController::class, 'settings'])->name('settings');
 
-    // Admin Appointments Routes
     Route::prefix('appointments')->name('admin.appointments.')->group(function () {
         Route::get('/create', [AppointmentController::class, 'create'])->name('create');
         Route::get('/view', [AppointmentController::class, 'viewAppointments'])->name('view');
         Route::post('/{id}/update-status/{status}', [AppointmentController::class, 'updateStatus'])->name('updateStatus');
-
-        //DELETE route
         Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('destroy');
     });
 
-
-    // Admin Doctors Routes
     Route::prefix('/doctors')->name('admin.doctors.')->group(function () {
         Route::get('/', [DoctorsController::class, 'index'])->name('index');
         Route::get('/create', [DoctorsController::class, 'create'])->name('create');
@@ -75,22 +84,19 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin'], function () {
         Route::get('/list', [DoctorsController::class, 'list'])->name('list');
     });
 
-    // Admin Account Routes
     Route::prefix('/accounts')->name('admin.accounts.')->group(function () {
         Route::get('/profile', [AdminController::class, 'showProfile'])->name('profile');
         Route::get('/profile/edit', [AdminController::class, 'editProfile'])->name('profile.edit');
-        Route::put('/profile/edit', [AdminController::class, 'updateProfile'])->name('profile.update'); // Add PUT route for updating profile
+        Route::put('/profile/edit', [AdminController::class, 'updateProfile'])->name('profile.update');
     });
 
-    // Log Route
     Route::prefix('/misc')->name('admin.misc.')->group(function () {
-        Route::get('/showlogs', [AdminController::class, 'showLogs'])->name('logs'); // Corrected route name
+        Route::get('/showlogs', [AdminController::class, 'showLogs'])->name('logs');
     });
 
-    //Creating Events
     Route::prefix('/events')->name('admin.events.')->group(function () {
         Route::get('/create', [EventController::class, 'createEvent'])->name('create');
-        Route::post('/store', [EventController::class, 'store'])->name('store'); // Ensure only POST is allowed
+        Route::post('/store', [EventController::class, 'store'])->name('store');
         Route::get('/view', [EventController::class, 'viewEvents'])->name('view');
         Route::post('/{id}', [EventController::class, 'destroy'])->name('destroy');
         Route::delete('/{id}', [EventController::class, 'destroy'])->name('destroy');
@@ -98,14 +104,13 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin'], function () {
 });
 
 // User Routes
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/user/home', function () {
         return view('user.dashboard');
     })->name('user.dashboard');
 
     Route::get('/user/settings', [SettingsController::class, 'userSettings'])->name('user.settings');
 
-    // User Appointments Routes
     Route::prefix('user/appointments')->name('user.appointments.')->group(function () {
         Route::get('/create', [UsersController::class, 'create'])->name('create');
         Route::post('/store', [UsersController::class, 'store'])->name('store');
@@ -114,7 +119,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/doctor/{id}', [DoctorsController::class, 'show'])->name('show');
     });
 
-    // User Account Routes
     Route::prefix('user/account')->name('user.account.')->group(function () {
         Route::get('/profile', [UsersController::class, 'showProfile'])->name('profile');
         Route::get('/appointments/{userId}/{appointmentIndex?}', [AppointmentController::class, 'showAppointments'])->name('appointments');
@@ -123,18 +127,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update-avatar', [ProfileController::class, 'updateAvatar'])->name('user.avatar.update');
     });
 
-    // Show logs User Route
     Route::prefix('user/misc')->name('user.misc.')->group(function () {
         Route::get('/showlogs', [UsersController::class, 'showLogs'])->name('logs');
     });
 
-    // User Events Routes
     Route::prefix('user/events')->name('user.events.')->group(function () {
         Route::get('/view/{notificationId?}', [EventController::class, 'view'])->name('view');
     });
 
-
-    // Routes for notifications
     Route::prefix('user/notifications')->name('user.notifications.')->group(function () {
         Route::get('/mark-read/{id}', [NotificationController::class, 'markRead'])->name('markRead');
         Route::get('/mark-all-read', [NotificationController::class, 'markAllRead'])->name('markAllRead');

@@ -273,14 +273,22 @@
                         @php
                         $availability = is_string($doctor->is_available) ? json_decode($doctor->is_available, true) : $doctor->is_available;
                         $availableDays = is_array($availability) ? $availability : [];
+                        $today = \Carbon\Carbon::now()->format('l');
+                        $isAvailableToday = in_array($today, $availableDays);
                         @endphp
-                        @if(in_array(\Carbon\Carbon::now()->format('l'), $availableDays))
-                        <p>Available</p>
+                        @if($isAvailableToday)
+                        <p>
+                          <span class="badge bg-success">Available today</span><br>
+                          <small>Available on: {{ implode(', ', $availableDays) }}</small>
+                        </p>
+                        @elseif(!empty($availableDays))
+                        <p>
+                          <span class="badge bg-danger">Unavailable today</span><br>
+                          <small>Available on: {{ implode(', ', $availableDays) }}</small>
+                        </p>
                         @else
-                        <p>Unavailable
-                          @if(!empty($availableDays))
-                          (Available on: {{ implode(', ', $availableDays) }})
-                          @endif
+                        <p>
+                          <span class="badge bg-secondary">Not Available</span>
                         </p>
                         @endif
                       </td>
