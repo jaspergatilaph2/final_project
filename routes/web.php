@@ -100,6 +100,10 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
         Route::get('/view', [EventController::class, 'viewEvents'])->name('view');
         Route::post('/{id}', [EventController::class, 'destroy'])->name('destroy');
         Route::delete('/{id}', [EventController::class, 'destroy'])->name('destroy');
+        Route::put('/{id}', [EventController::class, 'update'])->name('update');
+        // Route::post('/update/{id}', [EventController::class, 'update']); // Add this line
+        Route::get('/edit/{id}', [EventController::class, 'edit'])->name('edit');
+
     });
 });
 

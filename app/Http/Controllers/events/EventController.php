@@ -113,4 +113,41 @@ class EventController extends Controller
         return back()->with('success', 'Event deleted successfully.');
     }
 
+
+    public function update(Request $request, $id)
+    {
+        // Validate the request
+        $this->validate($request, [
+            'eventsName' => 'required|string|max:255',
+            'description' => 'required|string',
+            'eventsText' => 'required|string',
+            'date' => 'required|date',
+            'time' => 'required|date_format:H:i',
+            'endtime' => 'required|date_format:H:i',
+        ]);
+
+        // Find the event
+        $event = events::findOrFail($id);
+        $event->eventsName = $request->input('eventsName');
+        $event->description = $request->input('description');
+        $event->eventsText = $request->input('eventsText');
+        $event->date = $request->input('date');
+        $event->time = $request->input('time');
+        $event->endtime = $request->input('endtime');
+
+        $event->save();
+
+        logs::create(['description' => 'Event "' . $event->eventsName . '" updated successfully!']);
+        return redirect()->back()->with('success', 'Event updated successfully!');
+    }
+    public function edit($id)
+    {
+        $event = events::findOrFail($id);
+        return view('admin.events.edit', [
+            'ActiveEditMenu' => 'Edit',
+            'ActiveEditSubMenu' => 'Event',
+            'event' => $event
+        ]);
+    }
+
 }

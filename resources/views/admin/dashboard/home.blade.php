@@ -307,6 +307,8 @@
                     <canvas id="myChart"></canvas>
                   </div>
                 </div>
+
+                
               </div>
               <div class="col-md-4 pt-3">
                 <div class="card">

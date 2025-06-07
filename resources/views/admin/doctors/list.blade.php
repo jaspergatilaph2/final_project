@@ -115,7 +115,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="{{route('maintenance')}}" class="menu-link">
+              <a href="{{route('admin.accounts.profile.edit')}}" class="menu-link">
                 <div data-i18n="Notifications">Update Account</div>
               </a>
             </li>

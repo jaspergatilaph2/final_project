@@ -59,6 +59,7 @@
     <!-- Add this in your layout's <head> section -->
     <!-- Font Awesome CDN (v6) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -101,10 +102,12 @@
     <script src="{{ asset('js/arrow_toggle.js') }}"></script>
     <script src="{{ asset('sneat/js/print.js')}}"></script>
     <script src="{{ asset('sneat/js/doctorPrintList.js') }}"></script>
+    <script src="{{ asset('sneat/js/dashboards-analytics.js') }}"></script>
 
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

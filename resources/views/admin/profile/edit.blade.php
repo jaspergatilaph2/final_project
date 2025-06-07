@@ -86,11 +86,11 @@
                 <div data-i18n="Without navbar">View Doctors</div>
               </a>
             </li>
-            <!-- <li class="menu-item">
-              <a href="layouts-container.html" class="menu-link">
-                <div data-i18n="Container">Book Appointments</div>
+            <li class="menu-item">
+              <a href="{{ route('admin.doctors.list') }}" class="menu-link">
+                <div data-i18n="Container">List Doctors</div>
               </a>
-            </li> -->
+            </li>
             <!-- <li class="menu-item">
               <a href="layouts-fluid.html" class="menu-link">
                 <div data-i18n="Fluid">Edit Appointments</div>

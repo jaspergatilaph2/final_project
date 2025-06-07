@@ -297,7 +297,7 @@
               placeholder="Write your event here..." rows="4" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary">Save</button>
             </form>
 
           </div>
